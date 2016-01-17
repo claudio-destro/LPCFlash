@@ -1,0 +1,37 @@
+{
+  "name": "LPCFlashUtility",
+  "version": "1.0.0",
+  "description": "NXP LPC Microprocessor Programmer",
+  "author": "Claudio Destro <claudio.destro@gmail.com>",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.0",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.33.0",
+    "es6-symbol": "^3.0.2",
+    "flashmagic.js": "latest",
+    "reflect-metadata": "^0.1.2",
+    "rxjs": "^5.0.0-beta.0",
+    "systemjs": "^0.19.9",
+    "zone.js": "^0.5.10"
+  },
+  "devDependencies": {
+    "asar": "^0.9.0",
+    "electron-prebuilt": "^0.36.2",
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-webpack": "^1.0.11",
+    "ts-loader": "^0.7.2",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "keywords": [
+    "angular2",
+    "electron",
+    "flashmagic.js",
+    "javascript",
+    "serialport",
+    "typescript"
+  ]
+}
