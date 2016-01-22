@@ -5,7 +5,6 @@ module.exports = function(grunt) {
   var webpack = require('webpack');
 
   var webpackConfig = require('./webpack.config.js');
-  var packageJson = require('./package.json');
 
   var appDir = path.dirname(webpackConfig.entry.app);
   var buildDir = webpackConfig.output.path;

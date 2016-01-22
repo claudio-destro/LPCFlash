@@ -12,62 +12,51 @@ export interface SerialPortDescriptor {
   selector: 'serial-port-chooser',
   template:
   `<form>
-    <select (click)="refreshPorts()" [(ngModel)]="comPort">
+    <select [(ngModel)]="comPort">
       <option *ngFor="#port of ports" [value]="port">{{ port }}</option>
     </select>
     <select [(ngModel)]="baudRate">
-      <option>110</option>
-      <option>300</option>
-      <option>600</option>
-      <option>1200</option>
-      <option>2400</option>
-      <option>4800</option>
-      <option>9600</option>
-      <option>14400</option>
-      <option>19200</option>
-      <option>28800</option>
-      <option>38400</option>
-      <option>56000</option>
-      <option>57600</option>
-      <option>115200</option>
-      <option>128000</option>
-      <option>153600</option>
-      <option>230400</option>
-      <option>256000</option>
-      <option>460800</option>
-      <option>921600</option>
+      <option *ngFor="#rate of baudRates" [value]="rate">{{ rate }}</option>
     </select>
-    <button class="btn" (click)="selectPort()">Apply</button>
+    <button class="btn" (click)="selectPort()" [disabled]="applyDisabled">Apply</button>
   </form>`,
   directives: [NgFor, FORM_DIRECTIVES]
 })
 
 export class SerialPortChooser {
 
-  @Input() comPort: String;
-  @Input() baudRate: Number;
+  private comPort: string;
+  private baudRate: number;
 
   @Output() changed: EventEmitter<SerialPortDescriptor> = new EventEmitter(true);
 
-  ports: String[] = [];
+  private applyDisabled: boolean = false;
+
+  baudRates: number[] = [110,300,600,1200,2400,4800,9600,14400,19200,28800,38400,56000,57600,115200,128000,153600,230400,256000,460800,921600];
+  ports: string[] = [];
 
   constructor(private ngZone: NgZone) {
-    this.refreshPorts();
+    this.comPort = localStorage.getItem('comPort');
+    this.baudRate = +localStorage.getItem('baudRate');
+    this.refreshPorts(() => {
+      if (!this.comPort && this.ports.length) {
+        this.comPort = this.ports[0];
+      }
+    });
   }
 
   selectPort(): void {
+    localStorage.setItem('comPort', this.comPort);
+    localStorage.setItem('baudRate', this.baudRate.toString(10));
     this.changed.emit({comPort: this.comPort, baudRate: this.baudRate});
   }
 
-  refreshPorts(): void {
+  refreshPorts(done: () => void): void {
     com.list((err: any, ports: {comName: string}[]) => {
       this.ngZone.runOutsideAngular(() => {
         this.ports = [];
-        (ports || []).forEach((port) => {
-          this.ports.push(port.comName);
-        });
-        console.log(this.ports);
-        this.ngZone.run(() => {});
+        ports.forEach(port => this.ports.push(port.comName));
+        this.ngZone.run(done);
       });
     });
   }

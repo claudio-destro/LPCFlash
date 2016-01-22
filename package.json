@@ -9,10 +9,10 @@
     "es6-shim": "^0.33.0",
     "es6-symbol": "^3.0.2",
     "flashmagic.js": "latest",
-    "reflect-metadata": "^0.1.2",
-    "rxjs": "^5.0.0-beta.0",
-    "systemjs": "^0.19.9",
-    "zone.js": "^0.5.10"
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "systemjs": "0.19.6",
+    "zone.js": "0.5.10"
   },
   "devDependencies": {
     "asar": "^0.9.0",
