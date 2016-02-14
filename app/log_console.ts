@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, ElementRef, Input, NgZone, OnChanges, Simpl
 import {NgFor} from 'angular2/common';
 import {Log} from './log';
 
+declare var require: any;
 let com = require('serialport');
 
 interface SerialPort {

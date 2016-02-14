@@ -11,9 +11,10 @@
     "noLib": false
   },
   "exclude": [
-    "node_modules",
-    "typings",
     "build",
-    "dist"
+    "dist",
+    "node_modules",
+    "typings/main.d.ts",
+    "typings/main"
   ]
 }

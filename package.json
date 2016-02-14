@@ -1,37 +1,41 @@
 {
-  "name": "LPCFlashUtility",
-  "version": "1.0.0",
-  "description": "NXP LPC Microprocessor Programmer",
+  "name": "lpcflashutility",
+  "version": "0.0.1",
+  "description": "NXP LPC Microprocessor Programmer GUI",
   "author": "Claudio Destro <claudio.destro@gmail.com>",
+  "license": "LGPL-3.0",
   "dependencies": {
-    "angular2": "^2.0.0-beta.0",
+    "angular2": "^2.0.0-beta.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.0",
-    "es6-symbol": "^3.0.2",
     "flashmagic.js": "latest",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.0",
-    "systemjs": "0.19.6",
-    "zone.js": "0.5.10"
+    "systemjs": "0.19.20",
+    "zone.js": "0.5.14"
   },
   "devDependencies": {
     "asar": "^0.9.0",
     "electron-prebuilt": "^0.36.2",
-    "grunt": "^0.4.5",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-webpack": "^1.0.11",
+    "gulp": "^3.9.1",
+    "gulp-rm": "^1.0.0",
+    "gulp-typescript": "^2.11.0",
+    "run-sequence": "^1.1.5",
     "ts-loader": "^0.7.2",
-    "tsd": "^0.6.5",
     "typescript": "^1.7.5",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "typings": "^0.6.8",
+    "webpack": "^1.12.9"
   },
   "keywords": [
     "angular2",
     "electron",
+    "es6",
     "flashmagic.js",
     "javascript",
+    "lpc",
+    "nxp",
     "serialport",
     "typescript"
-  ]
+  ],
+  "scripts": {}
 }
