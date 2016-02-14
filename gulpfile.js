@@ -41,7 +41,8 @@ gulp.task('clean', function () {
     'build/**/*',
     '!build/node_modules/**/*',
     '!build/node_modules/',
-    '!build/package.json'
+    '!build/package.json',
+    'lpcflash.asar'
   ], {
       read: false
     }).pipe(rm());
