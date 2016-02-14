@@ -1,6 +1,9 @@
 {
-  "name": "LPCFlashUtility",
-  "version": "1.0.0",
+  "name": "lpcflashutility",
+  "version": "0.0.1",
+  "description": "NXP LPC Microprocessor Programmer GUI",
+  "author": "Claudio Destro <claudio.destro@gmail.com>",
+  "license": "LGPL-3.0",
   "main": "main.js",
   "dependencies": {
     "serialport": "^2.0.5"

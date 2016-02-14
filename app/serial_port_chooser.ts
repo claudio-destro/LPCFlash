@@ -2,7 +2,6 @@ import {Observable} from 'rxjs/Observable';
 import {Component, EventEmitter, Input, NgZone, Output} from 'angular2/core';
 import {FORM_DIRECTIVES, NgFor} from 'angular2/common';
 
-declare var require: any;
 let com = require('serialport');
 
 export interface SerialPortDescriptor {
