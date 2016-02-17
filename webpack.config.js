@@ -22,7 +22,7 @@ module.exports = {
     // 'angular2/router',
       'zone.js',
     ],
-    'app': './app/boot'
+    'app': './app/main'
   },
 
   output: {

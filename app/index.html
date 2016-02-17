@@ -14,12 +14,15 @@
 <body>
   <lpc-flash-utility>Initializing...</lpc-flash-utility>
   <script type="text/javascript">
+    // jQuery detects Electron's CommonJS environment thus I cannot use <script>
     window.jQuery = window.$ = require('./jquery.min');
+    // ... let's go requiring all components
+    [ './semantic.min',
+      './common',
+      './angular2',
+      './app'
+    ].forEach(require);
   </script>
-  <script type="text/javascript" src="semantic.min.js"></script>
-  <script type="text/javascript" src="common.js"></script>
-  <script type="text/javascript" src="angular2.js"></script>
-  <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>
