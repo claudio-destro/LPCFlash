@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var gutil = require("gulp-util");
+var merge2 = require('merge2');
 var webpack = require('webpack');
 var rm = require('gulp-rm');
 var runSequence = require('run-sequence');
@@ -22,18 +23,24 @@ gulp.task('build', ['copy'], function (callback) {
 });
 
 gulp.task('copy', function () {
-  return gulp.src([
-    'app/index.html',
-    'app/main.js'
-  ], { base: 'app/' })
-    .pipe(gulp.dest('build/'));
+  var app = 'app/';
+  var jquery = 'node_modules/jquery/dist/';
+  var semantic = 'semantic/dist/';
+  return merge2([
+    gulp.src([app + 'index.html', app + 'main.js'], { base: app })
+      .pipe(gulp.dest('build/')),
+    gulp.src(jquery + 'jquery.min.js', { base: jquery })
+      .pipe(gulp.dest('build/')),
+    gulp.src([semantic + 'semantic.min.js', semantic + 'semantic.min.css'], { base: semantic })
+      .pipe(gulp.dest('build/'))
+  ]);
 });
 
 gulp.task('dist', ['build'], function (callback) {
-    asar.createPackage('build/', 'lpcflash.asar', function(err) {
-      if (err) throw new gutil.PluginError('build', err);
-      callback();
-    });
+  asar.createPackage('build/', 'lpcflash.asar', function (err) {
+    if (err) throw new gutil.PluginError('build', err);
+    callback();
+  });
 });
 
 gulp.task('clean', function () {

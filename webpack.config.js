@@ -3,6 +3,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
   devtool: 'source-map',
@@ -16,9 +17,9 @@ module.exports = {
       'es6-shim',
       'angular2/core',
       'angular2/common',
-      // 'angular2/http',
+    // 'angular2/http',
       'angular2/platform/browser',
-      // 'angular2/router',
+    // 'angular2/router',
       'zone.js',
     ],
     'app': './app/boot'
@@ -33,7 +34,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['','.ts','.js','.json', '.css', '.html']
+    extensions: ['', '.ts', '.js', '.json', '.css', '.html']
   },
 
   module: {
@@ -41,7 +42,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts',
-        exclude: [ /build/, /node_modules/, /src/, /test/, /typings/ ]
+        exclude: [/build/, /node_modules/, /src/, /test/, /typings/]
       }
     ]
   },
@@ -52,6 +53,7 @@ module.exports = {
 
   plugins: [
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
-    new CommonsChunkPlugin({ name: 'common', filename: 'common.js' })
+    new CommonsChunkPlugin({ name: 'common', filename: 'common.js' }),
+    // new UglifyJsPlugin({ minimize: true, comments: false })
   ]
 };
