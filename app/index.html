@@ -2,7 +2,7 @@
 
 <head>
   <title>LPC Flash Utility</title>
-  <link rel="stylesheet" type="text/css" href="semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="vendors/css/materialize.min.css">
   <style>
     * {
       -webkit-user-select: none;
@@ -15,9 +15,9 @@
   <lpc-flash-utility>Initializing...</lpc-flash-utility>
   <script type="text/javascript">
     // jQuery detects Electron's CommonJS environment thus I cannot use <script>
-    window.jQuery = window.$ = require('./jquery.min');
+    window.jQuery = window.$ = require('./vendors/js/jquery.min');
     // ... so, let's go requiring all components
-    [ './semantic.min',
+    [ './vendors/js/materialize.min',
       './common',
       './angular2',
       './app'

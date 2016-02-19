@@ -22,17 +22,21 @@ gulp.task('build', ['copy'], function (callback) {
   });
 });
 
+function copy(base, files, dest) {
+  if (!Array.isArray(files)) files = [files];
+  for (var i = 0; i < files.length; i++) {
+    files[i] = base + files[i];
+  }
+  return gulp.src(files, {base: base}).pipe(gulp.dest(dest));
+}
+
 gulp.task('copy', function () {
-  var app = 'app/';
-  var jquery = 'node_modules/jquery/dist/';
-  var semantic = 'semantic/dist/';
   return merge2([
-    gulp.src([app + 'index.html', app + 'main.js'], { base: app })
-      .pipe(gulp.dest('build/')),
-    gulp.src(jquery + 'jquery.min.js', { base: jquery })
-      .pipe(gulp.dest('build/')),
-    gulp.src([semantic + 'semantic.min.js', semantic + 'semantic.min.css'], { base: semantic })
-      .pipe(gulp.dest('build/'))
+    copy('app/', ['index.html', 'main.js'], 'build/'),
+    copy('node_modules/jquery/dist/', ['jquery.*js*'], 'build/vendors/js'),
+    copy('node_modules/materialize-css/dist/', ['**/*'], 'build/vendors/'),
+    copy('node_modules/hammerjs/', ['hammer.*js*'], 'build/vendors/js'),
+    copy('node_modules/pickadate/lib/compressed/', ['picker.js'], 'build/vendors/js')
   ]);
 });
 
