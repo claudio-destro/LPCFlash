@@ -2,7 +2,11 @@ npm-debug.log*
 node_modules/
 .npm
 build/*.js*
+build/*.css*
 build/*.html
+build/*.min*
+build/*.map*
+build/vendors
 *.asar
 semantic/
 typings/
