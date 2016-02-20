@@ -34,7 +34,11 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.ts', '.js', '.json', '.css', '.html']
+    extensions: ['', '.ts', '.js', '.json', '.css', '.html'],
+    alias: {
+      materializecss: 'materialize-css/dist/css/materialize.css',
+      materialize: 'materialize-css/dist/js/materialize.js'
+    }
   },
 
   module: {
@@ -43,6 +47,10 @@ module.exports = {
         test: /\.ts$/,
         loader: 'ts',
         exclude: [/build/, /node_modules/, /src/, /test/, /typings/]
+      },
+      {
+        test: /materialize-css\/dist\/js\/materialize\.js/,
+        loader: 'imports?materializecss'
       }
     ]
   },
