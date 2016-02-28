@@ -10,39 +10,49 @@ let com = require('serialport');
 
 @Component({
   selector: 'serial-port-chooser',
+  styles: [`
+    .dropdown-item {cursor: pointer}
+  `],
   template:
-  `<form>
+  `<form class="form-horizontal">
     <fieldset class="form-group">
-      <label for="portPath">Serial port</label>
-      <div class="btn-group" dropdown>
-        <button id="portPath" type="button" class="btn btn-primary" dropdownToggle>
-          {{ portPath || 'Choose serial port' }}
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="portPath">
-          <li role="menuitem">
-            <a class="dropdown-item" *ngFor="#port of ports" (click)="portPathChange(port)">{{ port }}</a>
-          </li>
-        </ul>
+      <label class="control-label col-sm-3" for="portPath">Serial port</label>
+      <div class="input-group col-sm-9">
+        <div class="btn-group" dropdown>
+          <button id="portPath" type="button" class="btn btn-primary" dropdownToggle>
+            {{ portPath || 'Choose serial port' }}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="portPath">
+            <li role="menuitem">
+              <a class="dropdown-item" *ngFor="#port of ports" (click)="portPathChange(port)">{{ port }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </fieldset>
     <fieldset class="form-group">
-      <label for="baudRate">Baud rate (115200)</label>
-      <div class="btn-group" dropdown>
-        <button id="baudRate" type="button" class="btn btn-primary" dropdownToggle>
-          {{ baudRate }}
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="baudRate">
-          <li role="menuitem">
-            <a class="dropdown-item" *ngFor="#rate of baudRates" (click)="baudRateChange(rate)">{{ rate }}</a>
-          </li>
-        </ul>
+      <label class="control-label col-sm-3" for="baudRate">Baud rate</label>
+      <div class="input-group col-sm-9">
+        <div class="btn-group" dropdown>
+          <button id="baudRate" type="button" class="btn btn-primary" dropdownToggle>
+            {{ baudRate }}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="baudRate">
+            <li role="menuitem">
+              <a class="dropdown-item" *ngFor="#rate of baudRates" (click)="baudRateChange(rate)">{{ rate }}</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </fieldset>
     <fieldset class="form-group">
-      <label for="cclk">Crystal clock</label>
-      <input [ngModel]="cclk" (ngModelChange)="crystalClockChange(cclk = $event)" type="number" class="form-control" id="cclk" placeholder="Crystal clock in kHz"/>
+      <label class="control-label col-sm-3" for="cclk">Crystal clock</label>
+      <div class="input-group col-sm-6">
+        <input [ngModel]="cclk" (ngModelChange)="crystalClockChange(cclk = $event)" type="number" class="form-control" id="cclk"/>
+        <div class="input-group-addon">kHz</div>
+      </div>
     </fieldset>
   </form>`,
   directives: [NgFor, DROPDOWN_DIRECTIVES]
@@ -55,10 +65,10 @@ export class SerialPortChooser {
   private cclk: number;
   private echo: boolean;
 
-  private baudRates: number[] = [110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200, 128000, 153600, 230400, 256000, 460800, 921600];
+  private baudRates: number[] = [9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200];
   private ports: string[] = [];
 
-  constructor(private _router: Router, private _ngZone: NgZone) {
+  constructor(private _ngZone: NgZone) {
     Store.subscribe(state => this.gatherState(state));
     this.gatherState();
     this.refreshPorts(() => {
@@ -99,4 +109,3 @@ export class SerialPortChooser {
   }
 
 }
-

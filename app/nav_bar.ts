@@ -18,8 +18,8 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><a [routerLink]="['Uploader']">Upload</a></li>
-          <li><a [routerLink]="['Settings']">Settings</a></li>
+          <li [class.active]="link === 'Uploader'"><a [routerLink]="['Uploader']" (click)="selectLink('Uploader')">Upload</a></li>
+          <li [class.active]="link === 'Settings'"><a [routerLink]="['Settings']" (click)="selectLink('Settings')">Settings</a></li>
         </ul>
       </div>
     </div>
@@ -29,4 +29,9 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 export class NavBar {
 
+  private link: string;
+
+  private selectLink(link) {
+    this.link = link;
+  }
 }
