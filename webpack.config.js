@@ -22,7 +22,7 @@ module.exports = {
     // 'angular2/router',
       'zone.js',
     ],
-    'app': './app/index'
+    'app': './app/index.ts'
   },
 
   output: {
@@ -35,10 +35,6 @@ module.exports = {
 
   resolve: {
     extensions: ['', '.ts', '.js', '.json', '.css', '.html'],
-    alias: {
-      materializecss: 'materialize-css/dist/css/materialize.css',
-      materialize: 'materialize-css/dist/js/materialize.js'
-    }
   },
 
   module: {
@@ -46,12 +42,8 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts',
-        exclude: [/build/, /node_modules/, /src/, /test/, /typings/]
+        exclude: [/build/, /src/, /test/, /typings/, /node_modules(?!\/ng2-bootstrap)/]
       },
-      {
-        test: /materialize-css\/dist\/js\/materialize\.js/,
-        loader: 'imports?materializecss'
-      }
     ]
   },
 

@@ -1,33 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <title>LPC Flash Utility</title>
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" type="text/css" href="vendors/css/materialize.min.css">
+  <base href="/">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <style>
     * {
       -webkit-user-select: none;
       -webkit-app-region: no-drag;
     }
+
+    main {
+      margin-top: 70px;
+    }
   </style>
 </head>
 
 <body>
-<form materialize class="col s12">
-  <div class="row">
-    <div class="input-field col s6">
-      <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-      <label for="first_name">First Name</label>
-    </div>
-  </div>
-</form>
-
+  <lpc-flash-utility/>
   <script type="text/javascript">
-    // jQuery detects Electron's CommonJS environment thus I cannot use <script>
-    window.jQuery = window.$ = require('./vendors/js/jquery.min');
-    // ... so, let's go requiring all components
-    [ './vendors/js/materialize.min',
-      './common',
+    [ './common',
       './angular2',
       './app'
     ].forEach(require);
