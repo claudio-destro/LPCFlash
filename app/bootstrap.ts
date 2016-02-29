@@ -12,4 +12,4 @@ class MyUrlResolver extends UrlResolver {
   }
 }
 
-let app = bootstrap(LpcFlashUtility, [ROUTER_PROVIDERS, provide(UrlResolver, {useClass: MyUrlResolver})]);
+bootstrap(LpcFlashUtility, [ROUTER_PROVIDERS, provide(UrlResolver, {useClass: MyUrlResolver})]);
