@@ -1,0 +1,61 @@
+<form class="form-horizontal">
+  <fieldset class="form-group">
+    <label class="control-label col-sm-3" for="portPath">Serial port</label>
+    <div class="input-group col-sm-9">
+      <div class="btn-group" dropdown>
+        <button id="portPath" type="button" class="btn btn-success" dropdownToggle>
+          {{ portPath || 'Choose serial port' }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="portPath">
+          <li role="menuitem">
+            <a class="dropdown-item" *ngFor="#port of ports" (click)="portPathChange(port)">{{ port }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-3" for="baudRate">Baud rate</label>
+    <div class="input-group col-sm-9">
+      <div class="btn-group" dropdown>
+        <button id="baudRate" type="button" class="btn btn-success" dropdownToggle>
+          {{ baudRate }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="baudRate">
+          <li role="menuitem">
+            <a class="dropdown-item" *ngFor="#rate of baudRates" (click)="baudRateChange(rate)">{{ rate }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-3" for="cclk">Crystal clock frequency</label>
+    <div class="input-group col-sm-6">
+      <input [ngModel]="cclk" (ngModelChange)="crystalClockChange(cclk = $event)" type="number" class="form-control" id="cclk">
+      <div class="input-group-addon">kHz</div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-3" for="echo">Echo</label>
+    <div class="input-group col-sm-6">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="echo" (click)="echoChange(!echo)">
+          <span class="glyphicon" [class.glyphicon-ok]="echo" [class.glyphicon-remove]="!echo"></span>&nbsp;
+        </button>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-3" for="verbose">Verbose Mode</label>
+    <div class="input-group col-sm-6">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="verbose" disabled="disabled">
+          <span class="glyphicon" [class.glyphicon-ok]="verbose" [class.glyphicon-remove]="!verbose"></span>&nbsp;
+        </button>
+      </div>
+    </div>
+  </fieldset>
+</form>
