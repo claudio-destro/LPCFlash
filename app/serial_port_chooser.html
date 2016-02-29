@@ -4,7 +4,7 @@
     <div class="input-group col-sm-9">
       <div class="btn-group" dropdown>
         <button id="portPath" type="button" class="btn btn-success" dropdownToggle>
-          {{ portPath || 'Choose serial port' }}
+          {{ portPath }}
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="portPath">
@@ -33,7 +33,7 @@
   </fieldset>
   <fieldset class="form-group">
     <label class="control-label col-sm-3" for="cclk">Crystal clock frequency</label>
-    <div class="input-group col-sm-6">
+    <div class="input-group col-sm-4">
       <input [ngModel]="cclk" (ngModelChange)="crystalClockChange(cclk = $event)" type="number" class="form-control" id="cclk">
       <div class="input-group-addon">kHz</div>
     </div>

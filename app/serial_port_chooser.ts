@@ -7,9 +7,7 @@ let com = require('serialport');
 
 @Component({
   selector: 'serial-port-chooser',
-  styles: [`
-    label:after { content: ":" }
-  `],
+  styles: [`label:after {content: ":"}`],
   templateUrl: 'serial_port_chooser.html',
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
