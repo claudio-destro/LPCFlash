@@ -20,8 +20,8 @@ import {SerialPortChooser} from './serial_port_chooser';
 })
 
 @RouteConfig([
-  { path: '/upload',   name: 'Uploader', component: Uploader },
-  { path: '/settings', name: 'Settings', component: SerialPortChooser }
+  { path: '/settings', name: 'Settings', component: SerialPortChooser, useAsDefault: true },
+  { path: '/upload',   name: 'Uploader', component: Uploader }
 ])
 
 export class LpcFlashUtility {
