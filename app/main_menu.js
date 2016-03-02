@@ -19,9 +19,9 @@ const menuBar = module.exports = [
         label: 'Toggle Developer Tools',
         accelerator: (function () {
           if (process.platform == 'darwin')
-            return 'Alt+Command+I';
+            return 'Alt+Command+C';
           else
-            return 'Ctrl+Shift+I';
+            return 'Ctrl+Shift+C';
         })(),
         click: function (item, focusedWindow) {
           if (focusedWindow)

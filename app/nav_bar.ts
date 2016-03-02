@@ -15,6 +15,5 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 export class NavBar {
 
   constructor(private router: Router) {
-    console.dir(router);
   }
 }
