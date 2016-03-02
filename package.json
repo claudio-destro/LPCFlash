@@ -39,6 +39,7 @@
     "javascript",
     "lpc",
     "nxp",
+    "redux",
     "serialport",
     "typescript"
   ],
