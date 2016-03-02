@@ -2,9 +2,8 @@ import {Component, View, enableProdMode} from 'angular2/core';
 import {disableDebugTools} from 'angular2/platform/browser';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {NavBar} from './nav_bar';
-import {LogConsole} from './log_console';
 import {Uploader} from './uploader';
-import {SerialPortChooser} from './serial_port_chooser';
+import {Settings} from './settings';
 
 @Component({
   selector: 'lpc-flash-utility',
@@ -20,12 +19,12 @@ import {SerialPortChooser} from './serial_port_chooser';
 })
 
 @RouteConfig([
-  { path: '/settings', name: 'Settings', component: SerialPortChooser, useAsDefault: true },
-  { path: '/upload',   name: 'Uploader', component: Uploader }
+  { path: '/upload',   name: 'Uploader', component: Uploader },
+  { path: '/settings', name: 'Settings', component: Settings}
 ])
 
 export class LpcFlashUtility {
 }
 
-enableProdMode();
-disableDebugTools();
+// enableProdMode();
+// disableDebugTools();

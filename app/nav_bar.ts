@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
   selector: 'nav-bar',
@@ -13,4 +13,8 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
 })
 
 export class NavBar {
+
+  constructor(private router: Router) {
+    console.dir(router);
+  }
 }

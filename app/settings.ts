@@ -8,11 +8,11 @@ let com = require('serialport');
 @Component({
   selector: 'serial-port-chooser',
   styles: [`label:after {content: ":"}`],
-  templateUrl: 'serial_port_chooser.html',
+  templateUrl: 'settings.html',
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 
-export class SerialPortChooser {
+export class Settings {
 
   private portPath: string;
   private baudRate: number;
