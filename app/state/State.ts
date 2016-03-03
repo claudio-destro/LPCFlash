@@ -4,4 +4,8 @@ export interface State {
   cclk: number;
   echo: boolean;
   verbose: boolean;
+  handshake: {
+    retryTimeout: number,
+    retryCount: number
+  };
 }

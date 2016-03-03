@@ -15,6 +15,15 @@ export function reducer(state: State, action: Actions.Action) {
     case Actions.SET_ECHO:
       state.echo = (<Actions.EchoAction>action).echo;
       break;
+    case Actions.SET_VERBOSE:
+      state.verbose = (<Actions.VerboseAction>action).verbose;
+      break;
+    case Actions.SET_HANDSHAKE:
+      state.handshake = {
+        retryTimeout: (<Actions.HandshakeAction>action).retryTimeout,
+        retryCount: (<Actions.HandshakeAction>action).retryCount,
+      }
+      break;
   }
   return state;
 }

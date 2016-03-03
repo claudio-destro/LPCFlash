@@ -1,7 +1,7 @@
 <form class="form-horizontal">
   <fieldset class="form-group">
-    <label class="control-label col-sm-3" for="portPath">Serial port</label>
-    <div class="input-group col-sm-9">
+    <label class="control-label col-sm-4" for="portPath">Serial port</label>
+    <div class="input-group col-sm-4">
       <div class="btn-group" dropdown>
         <button id="portPath" type="button" class="btn btn-success" dropdownToggle>
           {{ portPath }}
@@ -16,8 +16,8 @@
     </div>
   </fieldset>
   <fieldset class="form-group">
-    <label class="control-label col-sm-3" for="baudRate">Baud rate</label>
-    <div class="input-group col-sm-9">
+    <label class="control-label col-sm-4" for="baudRate">Baud rate</label>
+    <div class="input-group col-sm-4">
       <div class="btn-group" dropdown>
         <button id="baudRate" type="button" class="btn btn-success" dropdownToggle>
           {{ baudRate }}
@@ -32,14 +32,36 @@
     </div>
   </fieldset>
   <fieldset class="form-group">
-    <label class="control-label col-sm-3" for="cclk">Crystal clock frequency</label>
+    <label class="control-label col-sm-4" for="cclk">Crystal clock frequency</label>
     <div class="input-group col-sm-4">
       <input [ngModel]="cclk" (ngModelChange)="crystalClockChange(cclk = $event)" type="number" class="form-control" id="cclk">
       <div class="input-group-addon">kHz</div>
     </div>
   </fieldset>
+  <hr>
+  <div class="row">
+    <div class="col-sm-8">
+      <fieldset class="form-group">
+        <label class="control-label col-sm-6" for="retryTimeout">Handshake retry timeout</label>
+        <div class="input-group col-sm-6">
+          <input [ngModel]="retryTimeout" (ngModelChange)="retryTimeoutChange(retryTimeout = $event)" type="number" class="form-control" id="retryTimeout">
+          <div class="input-group-addon">ms</div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label class="control-label col-sm-6" for="retryCount">Handshake retry count</label>
+        <div class="input-group col-sm-6">
+          <input [ngModel]="retryCount" (ngModelChange)="retryCountChange(retryCount = $event)" type="number" class="form-control" id="retryCount">
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-sm-4 rowspan">
+      {{ retryTimeout * retryCount }} ms
+    </div>
+  </div>
+  <hr>
   <fieldset class="form-group">
-    <label class="control-label col-sm-3" for="echo">Echo</label>
+    <label class="control-label col-sm-4" for="echo">Echo</label>
     <div class="input-group col-sm-6">
       <div class="btn-group">
         <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="echo" (click)="echoChange(!echo)">
@@ -49,7 +71,7 @@
     </div>
   </fieldset>
   <fieldset class="form-group">
-    <label class="control-label col-sm-3" for="verbose">Verbose</label>
+    <label class="control-label col-sm-4" for="verbose">Verbose</label>
     <div class="input-group col-sm-6">
       <div class="btn-group">
         <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="verbose" disabled="disabled">

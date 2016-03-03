@@ -6,7 +6,11 @@ export const Store = createPersistentStore(reducer, {
   baudRate: 115200,
   cclk: 12000,
   echo: true,
-  verbose: true
+  verbose: true,
+  handshake: {
+    retryTimeout: 20,
+    retryCount: Infinity
+  }
 });
 
 export * from './actions';
