@@ -14,7 +14,7 @@
     "build",
     "dist",
     "node_modules",
-    "typings/main.d.ts",
-    "typings/main"
+    "typings/main",
+    "typings/main.d.ts"
   ]
 }

@@ -51,12 +51,12 @@
       <fieldset class="form-group">
         <label class="control-label col-sm-6" for="retryCount">Handshake retry count</label>
         <div class="input-group col-sm-6">
-          <input [ngModel]="retryCount" (ngModelChange)="retryCountChange(retryCount = $event)" type="number" class="form-control" id="retryCount">
+          <input [ngModel]="retryCount" (ngModelChange)="retryCountChange(retryCount = $event)" type="number" class="form-control" id="retryCount" placeholder="infinite">
         </div>
       </fieldset>
     </div>
-    <div class="col-sm-4 rowspan">
-      {{ retryTimeout * retryCount }} ms
+    <div class="col-sm-4">
+      <p>{{ retryTimeout * retryCount | timespan}}</p>
     </div>
   </div>
   <hr>

@@ -1,7 +1,25 @@
 <div class="container">
+  <div class="row">
 
-  <div file-drop (fileOver)="fileOver($event)" class="drop-zone">
-    Base drop zone
+    <div *ngIf="state === 0" file-drop (fileOver)="fileOver($event)" class="drop-zone">
+      Base drop zone
+    </div>
+
+    <div *ngIf="state === 1" class="drop-zone">
+      <progressbar [max]="100" [value]="100" class="progress-bar-striped active">
+        <span style="color:white; white-space:nowrap;">Synching...</span>
+      </progressbar>
+    </div>
+
+    <div *ngIf="state === 2" class="drop-zone">
+      <progressbar [max]="uploadLength" [value]="uploadCount" class="progress-bar-striped active">
+        <span style="color:white; white-space:nowrap;">Uploading...</span>
+      </progressbar>
+    </div>
+
+    <div *ngIf="state < 0" class="drop-zone">
+      Oops!
+    </div>
+
   </div>
-
 </div>

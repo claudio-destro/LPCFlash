@@ -4,25 +4,28 @@ import {State} from './State';
 export function reducer(state: State, action: Actions.Action) {
   switch (action.type) {
     case Actions.SET_PORT_PATH:
-      state.portPath = (<Actions.PortPathAction>action).path;
+      state.flashmagic.portPath = (<Actions.PortPathAction>action).path;
       break;
     case Actions.SET_BAUD_RATE:
-      state.baudRate = (<Actions.BaudRateAction>action).rate;
+      state.flashmagic.baudRate = (<Actions.BaudRateAction>action).rate;
       break;
     case Actions.SET_CCLK:
-      state.cclk = (<Actions.CrystalClockAction>action).cclk;
+      state.flashmagic.cclk = (<Actions.CrystalClockAction>action).cclk;
       break;
     case Actions.SET_ECHO:
-      state.echo = (<Actions.EchoAction>action).echo;
+      state.flashmagic.echo = (<Actions.EchoAction>action).echo;
       break;
     case Actions.SET_VERBOSE:
-      state.verbose = (<Actions.VerboseAction>action).verbose;
+      state.flashmagic.verbose = (<Actions.VerboseAction>action).verbose;
       break;
     case Actions.SET_HANDSHAKE:
-      state.handshake = {
+      state.flashmagic.handshake = {
         retryTimeout: (<Actions.HandshakeAction>action).retryTimeout,
         retryCount: (<Actions.HandshakeAction>action).retryCount,
       }
+      break;
+    case Actions.SET_PROGRAMMER_STATE:
+      state.programmer = (<Actions.ProgrammerStateAction>action).state;
       break;
   }
   return state;

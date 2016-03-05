@@ -2,14 +2,16 @@ import {NgFor} from 'angular2/common';
 import {Component, NgZone} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
-import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, State, Store} from './state';
+import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, FlashMagicState, State, Store} from './state';
+import {TimespanPipe} from './timespan';
 let com = require('serialport');
 
 @Component({
   selector: 'serial-port-chooser',
+  pipes: [TimespanPipe],
   styles: [`
     label:after {content: ":"}
-    .rowspan {padding: 32px 64px}
+    .row {display: flex; align-items: center}
   `],
   templateUrl: 'settings.html',
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
@@ -64,13 +66,15 @@ export class Settings {
   }
 
   private gatherState(state: State = Store.getState()): void {
-    this.portPath = state.portPath;
-    this.baudRate = state.baudRate;
-    this.cclk = state.cclk;
-    this.echo = state.echo;
-    this.verbose = state.verbose;
-    this.retryTimeout = state.handshake.retryTimeout;
-    this.retryCount = state.handshake.retryCount;
+    const fm = state.flashmagic;
+    this.portPath = fm.portPath;
+    this.baudRate = fm.baudRate;
+    this.cclk = fm.cclk;
+    this.echo = fm.echo;
+    this.verbose = fm.verbose;
+    this.retryTimeout = fm.handshake.retryTimeout;
+    this.retryCount = fm.handshake.retryCount;
+
   }
 
   private refreshPorts(done: () => void): void {

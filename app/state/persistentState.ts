@@ -10,16 +10,16 @@ export function createPersistentStore(reducer: IReducer<State>, initialState: St
 
   try {
     let persistedState = deserialize(localStorage.getItem(LOCALSTORAGE_KEY));
-    finalInitialState = Object.assign({}, initialState, persistedState);
+    finalInitialState = Object.assign({}, initialState, { flashmagic: persistedState });
   } catch (e) {
     console.warn(e);
   }
 
   const store = createStore(reducer, finalInitialState);
 
-  store.subscribe(function() {
+  store.subscribe(() => {
     try {
-      localStorage.setItem(LOCALSTORAGE_KEY, serialize(store.getState()));
+      localStorage.setItem(LOCALSTORAGE_KEY, serialize(store.getState().flashmagic));
     } catch (e) {
       console.warn(e);
     }
