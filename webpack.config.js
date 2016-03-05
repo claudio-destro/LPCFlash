@@ -48,6 +48,7 @@ module.exports = {
   },
 
   externals: [{
+    fs: 'require("fs")',
     electron: 'require("electron")',
     serialport: 'require("serialport")'
   }],
@@ -56,9 +57,5 @@ module.exports = {
     new CommonsChunkPlugin({ name: 'angular2', filename: 'angular2.js', minChunks: Infinity }),
     new CommonsChunkPlugin({ name: 'common', filename: 'common.js' }),
     // new UglifyJsPlugin({ minimize: true, comments: false })
-  ],
-
-  node: {
-    fs: "empty"
-  }
+  ]
 };

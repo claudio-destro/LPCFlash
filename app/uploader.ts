@@ -1,10 +1,10 @@
-import {Component} from 'angular2/core';
+import {Component, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
-import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
+import {PROGRESSBAR_DIRECTIVES, Alert} from 'ng2-bootstrap';
 import * as FlashMagic from 'flashmagic.js/lib';
-import * as fs from 'fs';
 import {FileDrop} from './file_drop';
 import {ProgrammerState, setProgrammerState, Store} from './state';
+const fs = require('fs'); // XXX
 
 @Component({
   selector: 'uploader',
@@ -14,7 +14,7 @@ import {ProgrammerState, setProgrammerState, Store} from './state';
     .container, .row { height: 100% }
   `],
   templateUrl: 'uploader.html',
-  directives: [CORE_DIRECTIVES, FileDrop, PROGRESSBAR_DIRECTIVES]
+  directives: [CORE_DIRECTIVES, FileDrop, PROGRESSBAR_DIRECTIVES, Alert]
 })
 
 export class Uploader {
@@ -23,7 +23,7 @@ export class Uploader {
   private uploadLength: number;
   private uploadCount: number;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     Store.subscribe(state => {
       this.state = Store.getState().programmer;
     });
@@ -31,7 +31,7 @@ export class Uploader {
 
   private fileOver(e: FileList) {
     this.open()
-      .then(isp => this.programFile(isp, e[0].name, 0))
+      .then(isp => this.programFile(isp, e[0]['path'], 0))
       .then(isp => isp.close())
       .then(() => Store.dispatch(setProgrammerState(ProgrammerState.IDLE)))
       .catch(err => {
@@ -52,6 +52,7 @@ export class Uploader {
   }
 
   private programFile(isp: FlashMagic.InSystemProgramming, path: string, address: number): Promise<FlashMagic.InSystemProgramming> {
+    Store.dispatch(setProgrammerState(ProgrammerState.FLASHING));
     this.uploadLength = fs.statSync(path).size;
     this.uploadCount = 0;
     let programmer = new FlashMagic.Programmer(isp, address, this.uploadLength);
@@ -59,7 +60,12 @@ export class Uploader {
       let stream = fs.createReadStream(path);
       programmer.program(stream)
         .on('start', () => console.log(`About to flash ${this.uploadLength} bytes...`))
-        .on('chunk', buffer => { this.uploadCount += buffer.length; })
+        .on('chunk', buffer => {
+          this.ngZone.runOutsideAngular(() => {
+            this.uploadCount += buffer.length;
+            this.ngZone.run(() => { });
+          })
+        })
         .on('error', error => reject(error))
         .on('end', () => {
           console.log(`${path}: ${this.uploadCount} bytes written`);
