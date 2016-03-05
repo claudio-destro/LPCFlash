@@ -8,7 +8,7 @@ export const Store = createPersistentStore(reducer, {
     portPath: null,
     baudRate: 115200,
     cclk: 12000,
-    echo: true,
+    echo: false,
     verbose: true,
     handshake: {
       retryTimeout: 20,

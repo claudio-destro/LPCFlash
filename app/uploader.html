@@ -2,16 +2,18 @@
   <div class="row">
 
     <div *ngIf="state === 0" file-drop (fileOver)="fileOver($event)" class="drop-zone col-sm-12">
-      Base drop zone
+      <p>Drag BIN file here.</p>
     </div>
 
     <div *ngIf="state === 1" class="drop-zone col-sm-12">
+      <p>Please, put microprocessor in program mode.</p>
       <progressbar [max]="1" [value]="1" [type]="'striped active'">
-        <span style="color:white; white-space:nowrap;">Synching...</span>
+        <span style="color:white; white-space:nowrap;">Synch'ing...</span>
       </progressbar>
     </div>
 
     <div *ngIf="state === 2" class="drop-zone col-sm-12">
+      <p>Programming file, please wait...</p>
       <progressbar [max]="uploadLength" [value]="uploadCount"></progressbar>
     </div>
 

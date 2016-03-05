@@ -53,10 +53,6 @@ export class Settings {
     Store.dispatch(setCrystalClock(cclk));
   }
 
-  private echoChange(echo: boolean): void {
-    Store.dispatch(setEcho(echo));
-  }
-
   private retryTimeoutChange(retryTimeout: number): void {
     Store.dispatch(setHandshake(retryTimeout, this.retryCount));
   }
