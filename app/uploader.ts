@@ -43,7 +43,6 @@ export class Uploader {
       })
       .then(isp => {
         Store.dispatch(setProgrammerState(ProgrammerState.IDLE));
-        return isp.setEcho(true);
       })
       .catch(err => {
         Store.dispatch(setProgrammerState(ProgrammerState.FAILED));

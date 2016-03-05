@@ -10,6 +10,7 @@
       <progressbar [max]="1" [value]="1" [type]="'striped active'">
         <span style="color:white; white-space:nowrap;">Synch'ing...</span>
       </progressbar>
+      <button type="button" class="btn btn-primary" (click)="abortHandshake()">Abort</button>
     </div>
 
     <div *ngIf="state === 2" class="drop-zone col-sm-12">
