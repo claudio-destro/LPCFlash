@@ -1,7 +1,8 @@
 import {Component, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {PROGRESSBAR_DIRECTIVES, Alert} from 'ng2-bootstrap';
-import {handshake, InSystemProgramming, Programmer} from 'flashmagic.js/lib';
+import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
+import {interruptibleHandshake} from './handshake';
 import {FileDrop} from './file_drop';
 import {FlashMagicState, ProgrammerState, setProgrammerState, Store} from './state';
 const fs = require('fs'); // XXX
@@ -9,9 +10,11 @@ const fs = require('fs'); // XXX
 @Component({
   selector: 'uploader',
   styles: [`
-    .drop-zone { height: 100% }
-    .dragover { background: red }
-    .container, .row { height: 100% }
+    .dropzone-idle { display: flex; align-items: center; height: 100%; padding: 15px; border: 10px dotted transparent; }
+    .dropzone-idle h2 { margin: 0 auto }
+    .dropzone.dragover { border-color: #EEE }
+    .row { height: 100% }
+    .container-100 { width: 100%; height: 97%; }
   `],
   templateUrl: 'uploader.html',
   directives: [CORE_DIRECTIVES, FileDrop, PROGRESSBAR_DIRECTIVES, Alert]
@@ -23,6 +26,8 @@ export class Uploader {
   private uploadLength: number;
   private uploadCount: number;
 
+  private interrupt: () => void;
+
   constructor(private ngZone: NgZone) {
     Store.subscribe(state => {
       this.state = Store.getState().programmer;
@@ -32,22 +37,33 @@ export class Uploader {
   private fileOver(e: FileList) {
     let state = Store.getState().flashmagic;
     const hs = state.handshake;
+    Store.dispatch(setProgrammerState(ProgrammerState.OPENING));
     this.open(state)
       .then(isp => {
         Store.dispatch(setProgrammerState(ProgrammerState.SYNCING));
-        return handshake(isp, hs.retryCount, hs.retryTimeout);
+        var ret = interruptibleHandshake(isp);
+        this.interrupt = ret.interrupt;
+        return ret.promise;
       })
       .then(isp => {
         Store.dispatch(setProgrammerState(ProgrammerState.FLASHING));
         return this.programFile(isp, e[0]['path'], 0);
       })
-      .then(isp => {
+      .then(() => {
+        Store.dispatch(setProgrammerState(ProgrammerState.CLOSING));
+      })
+      .then(() => {
         Store.dispatch(setProgrammerState(ProgrammerState.IDLE));
       })
       .catch(err => {
         Store.dispatch(setProgrammerState(ProgrammerState.FAILED));
         console.error(err);
       });
+  }
+
+  private abortHandshake() {
+    this.state = ProgrammerState.IDLE;
+    this.interrupt();
   }
 
   private isp: InSystemProgramming;

@@ -1,8 +1,10 @@
 export enum ProgrammerState {
   FAILED = -1,
   IDLE = 0,
-  SYNCING = 1,
-  FLASHING = 2,
+  OPENING = 1,
+  SYNCING = 2,
+  FLASHING = 3,
+  CLOSING = 4
 }
 
 export interface HandshakeState {

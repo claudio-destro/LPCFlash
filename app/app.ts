@@ -26,5 +26,5 @@ import {Settings} from './settings';
 export class LpcFlashUtility {
 }
 
-// enableProdMode();
-// disableDebugTools();
+enableProdMode();
+disableDebugTools();
