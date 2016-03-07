@@ -5,6 +5,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 let mainWindow;
+let menuBar;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -16,13 +17,22 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
-  mainWindow = new BrowserWindow({ width: 1024, height: 768 });
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
-  let menuBar = require('./main_menu');
+  menuBar = require('./main_menu');
   let menu = Menu.buildFromTemplate(menuBar);
   Menu.setApplicationMenu(menu);
+  openProgrammer();
 });
 
+app.on('new-window', openProgrammer);
+
+function openProgrammer() {
+  if (!mainWindow) {
+    Menu.items()[1].submenu[0].enabled = true;
+    mainWindow = new BrowserWindow({ width: 1024, height: 768 });
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.on('closed', function () {
+      Menu.items()[1].submenu[0].enabled = true;
+      mainWindow = null;
+    });
+  }
+}

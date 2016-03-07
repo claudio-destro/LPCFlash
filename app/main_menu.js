@@ -4,17 +4,20 @@ const app = electron.app;
 
 const menuBar = module.exports = [
   {
-    label: 'View',
+    label: 'File',
     submenu: [
       {
-        label: 'Reload',
-        accelerator: 'CmdOrCtrl+R',
-        click: function (item, focusedWindow) {
-          if (focusedWindow) {
-            focusedWindow.reload();
-          }
+        label: 'New Programmer',
+        accelerator: 'CmdOrCtrl+N',
+        click: function () {
+          app.emit('new-window');
         }
       },
+    ]
+  },
+  {
+    label: 'View',
+    submenu: [
       {
         label: 'Toggle Developer Tools',
         accelerator: (function () {

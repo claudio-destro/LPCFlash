@@ -32,7 +32,7 @@ function copy(base, files, dest) {
 
 gulp.task('copy', function () {
   return merge2([
-    copy('app/', ['**/*.html', '**/*.js'], 'build/')
+    copy('app/', ['**/*.html', '**/*.js', '**/*.png'], 'build/')
   ]);
 });
 

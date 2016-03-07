@@ -62,7 +62,7 @@ export class Uploader {
   }
 
   private abortHandshake() {
-    this.state = ProgrammerState.IDLE;
+    Store.dispatch(setProgrammerState(ProgrammerState.IDLE));
     this.interrupt();
   }
 

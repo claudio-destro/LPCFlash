@@ -7,7 +7,7 @@ var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
   devtool: 'source-map',
-  debug: true,
+  debug: false,
 
   entry: {
     'angular2': [
@@ -17,9 +17,8 @@ module.exports = {
       'es6-shim',
       'angular2/core',
       'angular2/common',
-    // 'angular2/http',
       'angular2/platform/browser',
-    // 'angular2/router',
+      'angular2/router',
       'zone.js',
     ],
     'app': './app/bootstrap.ts'

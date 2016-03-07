@@ -6,15 +6,13 @@
     </div>
 
     <div *ngIf="state === 1 || state === 2" class="dropzone  dropzone-opening dropzone-synching col-sm-12">
-      <p>Please, put microprocessor in program mode.</p>
       <progressbar [max]="1" [value]="1" [type]="'striped active'">
-        <span style="color:white; white-space:nowrap;">Synch'ing...</span>
+        <span style="color:white">put microprocessor in program mode...</span>
       </progressbar>
-      <button type="button" class="btn btn-primary" (click)="abortHandshake()">Abort</button>
+      <button type="button" class="btn btn-default btn-sm" (click)="abortHandshake()">Abort</button>
     </div>
 
     <div *ngIf="state === 3" class="dropzone  dropzone-flashing col-sm-12">
-      <p>Programming file, please wait...</p>
       <progressbar [max]="uploadLength" [value]="uploadCount"></progressbar>
     </div>
 
