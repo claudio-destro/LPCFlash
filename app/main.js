@@ -7,6 +7,8 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 let menuBar;
 
+console.log('Running...');
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
@@ -17,9 +19,8 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
-  menuBar = require('./main_menu');
-  let menu = Menu.buildFromTemplate(menuBar);
-  Menu.setApplicationMenu(menu);
+  menuBar = Menu.buildFromTemplate(require('./main_menu'));
+  Menu.setApplicationMenu(menuBar);
   openProgrammer();
 });
 
@@ -27,11 +28,11 @@ app.on('new-window', openProgrammer);
 
 function openProgrammer() {
   if (!mainWindow) {
-    Menu.items()[1].submenu[0].enabled = true;
+    menuBar.items[1].submenu.items[0].enabled = false;
     mainWindow = new BrowserWindow({ width: 1024, height: 768 });
     mainWindow.loadURL('file://' + __dirname + '/index.html');
     mainWindow.on('closed', function () {
-      Menu.items()[1].submenu[0].enabled = true;
+      menuBar.items[1].submenu.items[0].enabled = true;
       mainWindow = null;
     });
   }
