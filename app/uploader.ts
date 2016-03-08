@@ -14,7 +14,6 @@ const fs = require('fs'); // XXX
     .dropzone-idle h2 { margin: 0 auto }
     .dropzone.dragover { border-color: #EEE }
     .row { height: 100% }
-    .container-100 { width: 100%; height: 97%; }
   `],
   templateUrl: 'uploader.html',
   directives: [CORE_DIRECTIVES, FileDrop, PROGRESSBAR_DIRECTIVES, Alert]

@@ -1,5 +1,4 @@
-import {Component, View, enableProdMode} from 'angular2/core';
-import {disableDebugTools} from 'angular2/platform/browser';
+import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {NavBar} from './nav_bar';
 import {Uploader} from './uploader';
@@ -25,6 +24,3 @@ import {Settings} from './settings';
 
 export class LpcFlashUtility {
 }
-
-enableProdMode();
-disableDebugTools();
