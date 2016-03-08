@@ -5,7 +5,7 @@ import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
 import {interruptibleHandshake} from './handshake';
 import {FileDrop} from './file_drop';
 import {FlashMagicState, ProgrammerState, setProgrammerState, Store} from './state';
-const fs = require('fs'); // XXX
+import * as fs from 'fs';
 
 @Component({
   selector: 'uploader',
