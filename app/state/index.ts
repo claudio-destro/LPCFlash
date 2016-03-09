@@ -14,7 +14,8 @@ export const Store = createPersistentStore(reducer, {
       retryTimeout: 20,
       retryCount: 1500
     }
-  }
+  },
+  history: []
 });
 
 export * from './actions';

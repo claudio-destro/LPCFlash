@@ -1,40 +1,13 @@
 <div class="container tab-content">
   <div class="row">
-
-    <div *ngIf="state === 0" file-drop (fileOver)="fileOver($event)" class="dropzone dropzone-idle col-sm-12">
-      <table class="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-          </tr>
-        </tbody>
+    <div file-drop (fileOver)="fileOver($event)" class="dropzone dropzone-idle col-sm-12">
+      <table class="table">
+        <tr *ngFor="#file of history">
+          <td>
+            <programmableFile [filePath]="file.filePath" [address]="file.address"></programmableFile>
+          </td>
+        </tr>
       </table>
     </div>
-
-    <div *ngIf="state === 1 || state === 2" class="dropzone  dropzone-opening dropzone-synching col-sm-12">
-      <progressbar [max]="1" [value]="1" [type]="'striped active'">
-        <span style="color:white">put microprocessor in program mode...</span>
-      </progressbar>
-      <button type="button" class="btn btn-default btn-sm" (click)="abortHandshake()">Abort</button>
-    </div>
-
-    <div *ngIf="state === 3" class="dropzone  dropzone-flashing col-sm-12">
-      <progressbar [max]="uploadLength" [value]="uploadCount"></progressbar>
-    </div>
-
-    <div *ngIf="state === 4" class="dropzone dropzone-closing col-sm-12">
-      <p>Closing...</p>
-    </div>
-
-    <div *ngIf="state < 0" class="dropzone dropzone-failed col-sm-12">
-      <alert type="danger">An error has occurred!</alert>
-      <button type="button" class="btn btn-primary" (click)="state = 0">Retry</button>
-    </div>
-
   </div>
 </div>

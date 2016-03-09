@@ -1,0 +1,47 @@
+<div class="row programmable-file">
+
+  <div *ngIf="status <= 0 || status == 4" class="flashmagic-idle">
+    <div class="col-sm-6">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-file"></span>&nbsp;
+        </div>
+        <input [ngModel]="filePath" type="string" class="form-control" readonly="readonly">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="input-group">
+        <div class="input-group-addon">0x</div>
+        <input [ngModel]="address" type="string" class="form-control" [disabled]="blocked">
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-success" (click)="downloadFile()" [disabled]="blocked">
+        <span class="glyphicon glyphicon-download-alt"></span>&nbsp;Program
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="status === 1 || status === 2" class="flashmagic-opening flashmagic-synching">
+    <div class="col-sm-10">
+      <progressbar [max]="1" [value]="1" [type]="'striped active'"></progressbar>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-default" (click)="setStatus(0)">
+        <span class="glyphicon glyphicon-stop"></span>&nbsp;Stop
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="status === 3" class="flashmagic-flashing">
+    <div class="col-sm-10">
+      <progressbar [max]="uploadLength" [value]="uploadCount"></progressbar>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-default" (click)="setStatus(0)">
+        <span class="glyphicon glyphicon-stop"></span>&nbsp;Stop
+      </button>
+    </div>
+  </div>
+
+</div>

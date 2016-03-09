@@ -1,4 +1,4 @@
-import {ProgrammerState, HandshakeState} from './State';
+import {ProgrammableFile, ProgrammerState, HandshakeState} from './State';
 
 export const SET_PORT_PATH = 'SET_PORT_PATH';
 export const SET_BAUD_RATE = 'SET_BAUD_RATE';
@@ -7,6 +7,7 @@ export const SET_ECHO = 'SET_ECHO';
 export const SET_VERBOSE = 'SET_VERBOSE';
 export const SET_HANDSHAKE = 'SET_HANDSHAKE';
 export const SET_PROGRAMMER_STATE = 'SET_PROGRAMMER_STATE';
+export const ADD_PROGRAMMABLE_FILE = 'ADD_PROGRAMMABLE_FILE';
 
 export interface Action { type: string; }
 export interface PortPathAction extends Action { path: string; }
@@ -15,6 +16,8 @@ export interface CrystalClockAction extends Action { cclk: number; }
 export interface EchoAction extends Action { echo: boolean; }
 export interface VerboseAction extends Action { verbose: boolean; }
 export interface HandshakeAction extends Action, HandshakeState { }
+
+export interface ProgrammableFileAction extends Action, ProgrammableFile { }
 
 export interface ProgrammerStateAction extends Action { state: ProgrammerState }
 
@@ -44,4 +47,8 @@ export function setHandshake(retryTimeout: number, retryCount: number): Handshak
 
 export function setProgrammerState(state: ProgrammerState): ProgrammerStateAction {
   return { type: SET_PROGRAMMER_STATE, state };
+}
+
+export function addProgrammableFile(filePath: string, address: number = 0x2000): ProgrammableFileAction {
+  return { type: ADD_PROGRAMMABLE_FILE, filePath, address };
 }

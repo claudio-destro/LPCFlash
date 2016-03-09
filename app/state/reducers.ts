@@ -27,6 +27,12 @@ export function reducer(state: State, action: Actions.Action) {
     case Actions.SET_PROGRAMMER_STATE:
       state.programmer = (<Actions.ProgrammerStateAction>action).state;
       break;
+    case Actions.ADD_PROGRAMMABLE_FILE:
+      state.history.push({
+        filePath: (<Actions.ProgrammableFileAction>action).filePath,
+        address: (<Actions.ProgrammableFileAction>action).address,
+      });
+      break;
   }
   return state;
 }

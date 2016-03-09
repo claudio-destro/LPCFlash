@@ -21,7 +21,13 @@ export interface FlashMagicState {
   handshake: HandshakeState;
 }
 
+export interface ProgrammableFile {
+  filePath: string;
+  address: number;
+}
+
 export interface State {
   programmer: ProgrammerState;
   flashmagic: FlashMagicState;
+  history: ProgrammableFile[];
 }
