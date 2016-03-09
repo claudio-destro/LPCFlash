@@ -2,7 +2,18 @@
   <div class="row">
 
     <div *ngIf="state === 0" file-drop (fileOver)="fileOver($event)" class="dropzone dropzone-idle col-sm-12">
-      <h2>Drag file here</h2>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div *ngIf="state === 1 || state === 2" class="dropzone  dropzone-opening dropzone-synching col-sm-12">
@@ -24,19 +35,6 @@
       <alert type="danger">An error has occurred!</alert>
       <button type="button" class="btn btn-primary" (click)="state = 0">Retry</button>
     </div>
-
-    <table class="table table-hover table-striped">
-      <thead>
-        <tr>
-          <th>#</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
 
   </div>
 </div>

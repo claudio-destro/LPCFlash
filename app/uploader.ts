@@ -2,7 +2,6 @@ import {Component, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {PROGRESSBAR_DIRECTIVES, Alert} from 'ng2-bootstrap';
 import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
-import {interruptibleHandshake} from './handshake';
 import {FileDrop} from './file_drop';
 import {FlashMagicState, ProgrammerState, setProgrammerState, Store} from './state';
 import * as fs from 'fs';
@@ -10,9 +9,8 @@ import * as fs from 'fs';
 @Component({
   selector: 'uploader',
   styles: [`
-    .dropzone-idle { display: flex; align-items: center; height: 100%; padding: 15px; border: 10px dotted transparent; }
-    .dropzone-idle h2 { margin: 0 auto }
-    .dropzone.dragover { border-color: #EEE }
+    .dropzone-idle { height: 100%; padding: 15px; border: 10px dotted transparent; }
+    .dropzone-idle.dragover { border-color: #EEE }
     .row { height: 100% }
   `],
   templateUrl: 'uploader.html',
@@ -70,17 +68,13 @@ export class Uploader {
     return new Promise<InSystemProgramming>((resolve, reject) => {
       var synchronize = () => {
         isp.write('?')
-          .then(() => isp.read(cfg.handshake.retryTimeout))
-          .then(ack => {
-            if (!ack.match(/^\?*Synchronized/)) {
-              throw new RangeError('Not synchronized');
-            }
-            return isp.writeln('Synchronized');
-          })
-          .then(isp => isp.assert('Synchronized'))
-          .then(isp => isp.assert('OK'))
+          .then(() => isp.assert(/^\?*Synchronized/, cfg.handshake.retryTimeout))
+          .then(isp => isp.writeln('Synchronized'))
+          .then(isp => isp.assert(/Synchronized/))
+          .then(isp => isp.assertOK())
+          .then(isp => isp.reset())
           .then(isp => isp.sendLine(isp.cclk.toString(10)))
-          .then(isp => isp.assert('OK'))
+          .then(isp => isp.assertOK())
           .then(isp => isp.setEcho(cfg.echo))
           .then(isp => isp.readPartIdentification())
           .then(partId => isp.readBootcodeVersion())
@@ -90,7 +84,8 @@ export class Uploader {
               if (count-- <= 0) {
                 return reject(error);
               }
-              setTimeout(synchronize); // loop until no error or interrupted
+              console.warn(error);
+              setTimeout(synchronize); // loop until error or interrupt
             }
           });
       };
