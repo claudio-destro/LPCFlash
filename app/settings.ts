@@ -70,7 +70,6 @@ export class Settings {
     this.verbose = fm.verbose;
     this.retryTimeout = fm.handshake.retryTimeout;
     this.retryCount = fm.handshake.retryCount;
-
   }
 
   private refreshPorts(done: () => void): void {

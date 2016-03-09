@@ -26,7 +26,7 @@ import * as fs from 'fs';
 
 export class Uploader {
 
-  private history: ProgrammableFile[] = [];
+  private history: ProgrammableFile[];
 
   constructor() {
     Store.subscribe(state => {
