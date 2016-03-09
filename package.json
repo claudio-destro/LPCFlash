@@ -30,6 +30,13 @@
     "typings": "^0.6.8",
     "webpack": "^1.12.9"
   },
+  "bugs": {
+    "url": "https://github.com/claudio-destro/LPCFlash/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claudio-destro/LPCFlash.git"
+  },
   "keywords": [
     "angular2",
     "electron",

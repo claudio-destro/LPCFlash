@@ -25,7 +25,7 @@ export class Uploader {
   private uploadLength: number;
   private uploadCount: number;
 
-  private interrupt: () => void;
+  private running: boolean;
 
   constructor(private ngZone: NgZone) {
     Store.subscribe(state => {
@@ -37,12 +37,11 @@ export class Uploader {
     let state = Store.getState().flashmagic;
     const hs = state.handshake;
     Store.dispatch(setProgrammerState(ProgrammerState.OPENING));
+    this.running = true;
     this.open(state)
       .then(isp => {
         Store.dispatch(setProgrammerState(ProgrammerState.SYNCING));
-        var ret = interruptibleHandshake(isp);
-        this.interrupt = ret.interrupt;
-        return ret.promise;
+        return this.handshake(isp);
       })
       .then(isp => {
         Store.dispatch(setProgrammerState(ProgrammerState.FLASHING));
@@ -62,18 +61,47 @@ export class Uploader {
 
   private abortHandshake() {
     Store.dispatch(setProgrammerState(ProgrammerState.IDLE));
-    this.interrupt();
+    this.running = false;
   }
 
-  private isp: InSystemProgramming;
+  private handshake(isp: InSystemProgramming) {
+    const cfg = Store.getState().flashmagic;
+    let count = cfg.handshake.retryCount;
+    return new Promise<InSystemProgramming>((resolve, reject) => {
+      var synchronize = () => {
+        isp.write('?')
+          .then(() => isp.read(cfg.handshake.retryTimeout))
+          .then(ack => {
+            if (!ack.match(/^\?*Synchronized/)) {
+              throw new RangeError('Not synchronized');
+            }
+            return isp.writeln('Synchronized');
+          })
+          .then(isp => isp.assert('Synchronized'))
+          .then(isp => isp.assert('OK'))
+          .then(isp => isp.sendLine(isp.cclk.toString(10)))
+          .then(isp => isp.assert('OK'))
+          .then(isp => isp.setEcho(cfg.echo))
+          .then(isp => isp.readPartIdentification())
+          .then(partId => isp.readBootcodeVersion())
+          .then(bootVer => resolve(isp))
+          .catch(error => {
+            if (this.running) {
+              if (count-- <= 0) {
+                return reject(error);
+              }
+              setTimeout(synchronize); // loop until no error or interrupted
+            }
+          });
+      };
+      synchronize(); // start loop
+    });
+  }
 
   private open(state: FlashMagicState): Promise<InSystemProgramming> {
-    if (this.isp) {
-      return Promise.resolve(this.isp);
-    }
-    this.isp = new InSystemProgramming(state.portPath, state.baudRate, state.cclk);
-    this.isp.verbose = state.verbose;
-    return this.isp.open();
+    let isp = new InSystemProgramming(state.portPath, state.baudRate, state.cclk);
+    isp.verbose = state.verbose;
+    return isp.open();
   }
 
   private programFile(isp: InSystemProgramming, path: string, address: number): Promise<InSystemProgramming> {
@@ -85,10 +113,12 @@ export class Uploader {
       programmer.program(stream)
         .on('start', () => { })
         .on('chunk', buffer => {
-          this.ngZone.runOutsideAngular(() => {
-            this.uploadCount += buffer.length;
-            this.ngZone.run(() => { });
-          })
+          if (this.running) {
+            this.ngZone.runOutsideAngular(() => {
+              this.uploadCount += buffer.length;
+              this.ngZone.run(() => { });
+            });
+          }
         })
         .on('error', error => {
           stream.close();
