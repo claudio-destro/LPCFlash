@@ -5,10 +5,10 @@ import {Uploader} from './uploader';
 import {Settings} from './settings';
 
 @Component({
-  selector: 'lpc-flash-utility',
+  selector: 'lpcFlashUtility',
   template: `
     <header class="container">
-      <nav-bar></nav-bar>
+      <navBar></navBar>
     </header>
     <main class="container">
       <router-outlet></router-outlet>

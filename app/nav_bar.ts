@@ -3,7 +3,7 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ProgrammerState, State, Store} from './state';
 
 @Component({
-  selector: 'nav-bar',
+  selector: 'navBar',
   styles: [`
     a {cursor: pointer}
     .disabled a {cursor: default}

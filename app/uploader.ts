@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {FileDrop} from './file_drop';
-import {ProgrammableFile, addProgrammableFile, Store} from './state';
+import {ProgrammableFile, addProgrammableFile, Store, State} from './state';
 import {BinaryFile} from './programmable_file';
 import * as fs from 'fs';
 
@@ -19,6 +19,12 @@ import * as fs from 'fs';
     .row {
       height: 100%
     }
+    h2 {
+      text-align: center;
+      position: relative;
+      top: 40%;
+      color: #5cb85c;
+    }
   `],
   templateUrl: 'uploader.html',
   directives: [BinaryFile, CORE_DIRECTIVES, FileDrop]
@@ -26,12 +32,11 @@ import * as fs from 'fs';
 
 export class Uploader {
 
-  private history: ProgrammableFile[];
+  private history: ProgrammableFile[] = [];
 
   constructor() {
-    Store.subscribe(state => {
-      this.history = Store.getState().history;
-    });
+    Store.subscribe(state => this.gatherHistory(state));
+    this.gatherHistory();
   }
 
   private fileOver(e: FileList) {
@@ -40,4 +45,7 @@ export class Uploader {
     }
   }
 
+  private gatherHistory(state: State = Store.getState()): void {
+    this.history = state.history;
+  }
 }

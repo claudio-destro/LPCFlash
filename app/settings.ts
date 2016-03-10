@@ -7,7 +7,7 @@ import {TimespanPipe} from './timespan';
 let com = require('serialport');
 
 @Component({
-  selector: 'serial-port-chooser',
+  selector: 'settings',
   pipes: [TimespanPipe],
   styles: [`
     label:after {content: ":"}
