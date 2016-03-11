@@ -2,7 +2,7 @@ import {Component, Input, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
 import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
-import {ProgrammableFile, FlashMagicState, ProgrammerState, setProgrammerState, Store} from './state';
+import {ProgrammableFile, FlashMagicState, ProgrammerState, setProgrammerState, Store, removeProgrammableFile} from './state';
 import * as fs from 'fs';
 
 @Component({
@@ -13,9 +13,6 @@ import * as fs from 'fs';
       display: flex;
       align-items: center;
     }
-    .btn {
-      width: 100%;
-    }
   `],
   templateUrl: 'programmable_file.html',
   directives: [CORE_DIRECTIVES, PROGRESSBAR_DIRECTIVES]
@@ -23,6 +20,7 @@ import * as fs from 'fs';
 
 export class BinaryFile implements ProgrammableFile {
 
+  @Input() index: number;
   @Input() filePath: string;
   @Input() address: number;
 
@@ -66,6 +64,10 @@ export class BinaryFile implements ProgrammableFile {
       });
   }
 
+  private remove(): void {
+    Store.dispatch(removeProgrammableFile(this.index));
+  }
+
   private open(state: FlashMagicState): Promise<InSystemProgramming> {
     let isp = new InSystemProgramming(state.portPath, state.baudRate, state.cclk);
     isp.verbose = state.verbose;
@@ -75,6 +77,7 @@ export class BinaryFile implements ProgrammableFile {
   private handshake(isp: InSystemProgramming) {
     const cfg = Store.getState().flashmagic;
     let count = cfg.handshake.retryCount;
+    this.uploadCount = this.uploadLength = 1;
     return new Promise<InSystemProgramming>((resolve, reject) => {
       var synchronize = () => {
         isp.write('?')

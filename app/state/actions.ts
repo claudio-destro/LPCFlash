@@ -8,6 +8,7 @@ export const SET_VERBOSE = 'SET_VERBOSE';
 export const SET_HANDSHAKE = 'SET_HANDSHAKE';
 export const SET_PROGRAMMER_STATE = 'SET_PROGRAMMER_STATE';
 export const ADD_PROGRAMMABLE_FILE = 'ADD_PROGRAMMABLE_FILE';
+export const REMOVE_PROGRAMMABLE_FILE = 'REMOVE_PROGRAMMABLE_FILE';
 
 export interface Action { type: string; }
 export interface PortPathAction extends Action { path: string; }
@@ -16,10 +17,9 @@ export interface CrystalClockAction extends Action { cclk: number; }
 export interface EchoAction extends Action { echo: boolean; }
 export interface VerboseAction extends Action { verbose: boolean; }
 export interface HandshakeAction extends Action, HandshakeState { }
-
-export interface ProgrammableFileAction extends Action, ProgrammableFile { }
-
 export interface ProgrammerStateAction extends Action { state: ProgrammerState }
+export interface AddProgrammableAction extends Action, ProgrammableFile { }
+export interface RemoveProgrammableAction extends Action { index: number }
 
 export function setPortPath(path: string): PortPathAction {
   return { type: SET_PORT_PATH, path };
@@ -49,6 +49,10 @@ export function setProgrammerState(state: ProgrammerState): ProgrammerStateActio
   return { type: SET_PROGRAMMER_STATE, state };
 }
 
-export function addProgrammableFile(filePath: string, address: number = 0x2000): ProgrammableFileAction {
+export function addProgrammableFile(filePath: string, address: number = 0x2000): AddProgrammableAction {
   return { type: ADD_PROGRAMMABLE_FILE, filePath, address };
+}
+
+export function removeProgrammableFile(index: number): RemoveProgrammableAction {
+  return { type: REMOVE_PROGRAMMABLE_FILE, index };
 }

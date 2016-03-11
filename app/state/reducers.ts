@@ -29,9 +29,12 @@ export function reducer(state: State, action: Actions.Action) {
       break;
     case Actions.ADD_PROGRAMMABLE_FILE:
       state.history.push({
-        filePath: (<Actions.ProgrammableFileAction>action).filePath,
-        address: (<Actions.ProgrammableFileAction>action).address,
+        filePath: (<Actions.AddProgrammableAction>action).filePath,
+        address: (<Actions.AddProgrammableAction>action).address,
       });
+      break;
+    case Actions.REMOVE_PROGRAMMABLE_FILE:
+      state.history.splice((<Actions.RemoveProgrammableAction>action).index, 1);
       break;
   }
   return state;

@@ -2,9 +2,9 @@
   <div class="row">
     <div file-drop (fileOver)="fileOver($event)" class="dropzone dropzone-idle col-sm-12">
       <table class="table" *ngIf="history.length">
-        <tr *ngFor="#file of history">
+        <tr *ngFor="#file of history; #i = index">
           <td>
-            <programmableFile [filePath]="file.filePath" [address]="file.address"></programmableFile>
+            <programmableFile [index]="i" [filePath]="file.filePath" [address]="file.address"></programmableFile>
           </td>
         </tr>
       </table>

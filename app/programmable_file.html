@@ -16,9 +16,14 @@
       </div>
     </div>
     <div class="col-sm-2">
-      <button type="button" class="btn btn-success" (click)="downloadFile()" [disabled]="blocked">
-        <span class="glyphicon glyphicon-download-alt"></span>&nbsp;Program
-      </button>
+      <div class="btn-group fit-width">
+        <button type="button" class="btn btn-success" (click)="downloadFile()" [disabled]="blocked">
+          <span class="glyphicon glyphicon-download-alt"></span>&nbsp;
+        </button>
+        <button type="button" class="btn btn-danger" (click)="remove()" [disabled]="blocked">
+          <span class="glyphicon glyphicon-remove"></span>&nbsp;
+        </button>
+      </div>
     </div>
   </div>
 
@@ -27,9 +32,11 @@
       <progressbar [max]="1" [value]="1" [type]="'striped active'"></progressbar>
     </div>
     <div class="col-sm-2">
-      <button type="button" class="btn btn-default" (click)="setStatus(0)">
-        <span class="glyphicon glyphicon-stop"></span>&nbsp;Stop
-      </button>
+      <div class="btn-group fit-width">
+        <button type="button" class="btn btn-success" (click)="setStatus(0)">
+          <span class="glyphicon glyphicon-stop"></span>&nbsp;
+        </button>
+      </div>
     </div>
   </div>
 
@@ -38,9 +45,11 @@
       <progressbar [max]="uploadLength" [value]="uploadCount"></progressbar>
     </div>
     <div class="col-sm-2">
-      <button type="button" class="btn btn-default" (click)="setStatus(0)">
-        <span class="glyphicon glyphicon-stop"></span>&nbsp;Stop
-      </button>
+      <div class="btn-group fit-width">
+        <button type="button" class="btn btn-success" (click)="setStatus(0)">
+          <span class="glyphicon glyphicon-stop"></span>&nbsp;
+        </button>
+      </div>
     </div>
   </div>
 
