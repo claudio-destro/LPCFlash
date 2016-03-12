@@ -1,36 +1,39 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
-import {FileDrop} from './file_drop';
-import {ProgrammableFile, addProgrammableFile, Store, State} from './state';
-import {BinaryFile} from './programmable_file';
+import {FileDropDirective} from './fileDropDirective';
+import {ProgrammableFile, addProgrammableFile, Store, State} from '../state';
+import {ProgrammableFileComponent} from './programmableFileComponent';
 import * as fs from 'fs';
 
 @Component({
   selector: 'uploader',
   styles: [`
+    .dropzone {
+      overflow: auto;
+    }
     .dropzone-idle {
       height: 100%;
       padding: 15px;
-      border: 10px dotted transparent;
+      border: 4px dotted transparent;
     }
     .dropzone-idle.dragover {
-      border-color: #EEE;
+      border-color: #5CB85C;
     }
     .row {
       height: 100%
     }
-    h2 {
+    h3 {
       text-align: center;
       position: relative;
       top: 40%;
-      color: #5cb85c;
+      color: #5CB85C;
     }
   `],
-  templateUrl: 'uploader.html',
-  directives: [BinaryFile, CORE_DIRECTIVES, FileDrop]
+  templateUrl: 'uploader/uploader.html',
+  directives: [ProgrammableFileComponent, CORE_DIRECTIVES, FileDropDirective]
 })
 
-export class Uploader {
+export class UploaderComponent {
 
   private history: ProgrammableFile[] = [];
 

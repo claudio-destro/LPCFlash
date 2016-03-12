@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {ProgrammerState, State, Store} from './state';
+import {ProgrammerState, State, Store} from '../state';
 
 @Component({
   selector: 'navBar',
@@ -9,11 +9,11 @@ import {ProgrammerState, State, Store} from './state';
     .disabled a {cursor: default}
     .disabled {pointer-events: none}
   `],
-  templateUrl: 'nav_bar.html',
+  templateUrl: 'navbar/navBar.html',
   directives: [ROUTER_DIRECTIVES]
 })
 
-export class NavBar {
+export class NavBarComponent {
 
   private state: ProgrammerState = ProgrammerState.IDLE;
 

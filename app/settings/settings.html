@@ -34,7 +34,7 @@
   <fieldset class="form-group">
     <label class="control-label col-sm-4" for="cclk">Crystal clock frequency</label>
     <div class="input-group col-sm-4">
-      <input [ngModel]="cclk" (ngModelChange)="crystalClockChange(cclk = $event)" type="number" class="form-control" id="cclk">
+      <input [(ngModel)]="cclk" (ngModelChange)="crystalClockChange(cclk)" type="number" class="form-control" id="cclk">
       <div class="input-group-addon">kHz</div>
     </div>
   </fieldset>
@@ -44,14 +44,14 @@
       <fieldset class="form-group">
         <label class="control-label col-sm-6" for="retryTimeout">Handshake retry timeout</label>
         <div class="input-group col-sm-6">
-          <input [ngModel]="retryTimeout" (ngModelChange)="retryTimeoutChange(retryTimeout = $event)" type="number" class="form-control" id="retryTimeout">
+          <input [(ngModel)]="retryTimeout" (ngModelChange)="retryTimeoutChange(retryTimeout)" type="number" class="form-control" id="retryTimeout">
           <div class="input-group-addon">ms</div>
         </div>
       </fieldset>
       <fieldset class="form-group">
         <label class="control-label col-sm-6" for="retryCount">Handshake retry count</label>
         <div class="input-group col-sm-6">
-          <input [ngModel]="retryCount" (ngModelChange)="retryCountChange(retryCount = $event)" type="number" class="form-control" id="retryCount" placeholder="infinite">
+          <input [(ngModel)]="retryCount" (ngModelChange)="retryCountChange(retryCount)" type="number" class="form-control" id="retryCount">
         </div>
       </fieldset>
     </div>

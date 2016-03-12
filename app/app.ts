@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {NavBar} from './nav_bar';
-import {Uploader} from './uploader';
-import {Settings} from './settings';
+import {NavBarComponent} from './navbar';
+import {UploaderComponent} from './uploader';
+import {SettingsComponent} from './settings';
 
 @Component({
   selector: 'lpcFlashUtility',
@@ -14,12 +14,12 @@ import {Settings} from './settings';
       <router-outlet></router-outlet>
     </main>
     `,
-  directives: [NavBar, ROUTER_DIRECTIVES]
+  directives: [NavBarComponent, ROUTER_DIRECTIVES]
 })
 
 @RouteConfig([
-  { path: '/upload', name: 'Uploader', component: Uploader },
-  { path: '/settings', name: 'Settings', component: Settings }
+  { path: '/upload', name: 'Uploader', component: UploaderComponent },
+  { path: '/settings', name: 'Settings', component: SettingsComponent }
 ])
 
 export class LpcFlashUtility {

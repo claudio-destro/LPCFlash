@@ -1,7 +1,7 @@
 import { Directive, EventEmitter } from 'angular2/core';
 
 @Directive({
-  selector: '[file-drop]',
+  selector: '[fileDrop]',
   events: ['fileOver'],
   host: {
     '(drop)': 'onDrop($event)',
@@ -11,7 +11,7 @@ import { Directive, EventEmitter } from 'angular2/core';
   }
 })
 
-export class FileDrop {
+export class FileDropDirective {
 
   private fileOver: EventEmitter<any> = new EventEmitter();
   private hover: boolean = false;

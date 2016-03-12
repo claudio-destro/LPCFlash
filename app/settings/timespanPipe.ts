@@ -8,7 +8,6 @@ export class TimespanPipe implements PipeTransform {
       return value < 1000 ? `${value}ms` : toHHMMSS(~~(value / 1000));
     }
   }
-
 }
 
 function toHHMMSS(value: number): string {
@@ -25,6 +24,6 @@ function toHHMMSS(value: number): string {
   return `${seconds}s`;
 }
 
-function pad10(n: number): string|number {
+function pad10(n: number): string | number {
   return n < 10 ? `0${n}` : n;
 }

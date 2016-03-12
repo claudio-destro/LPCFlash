@@ -2,8 +2,8 @@ import {NgFor} from 'angular2/common';
 import {Component, NgZone} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
-import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, FlashMagicState, State, Store} from './state';
-import {TimespanPipe} from './timespan';
+import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, FlashMagicState, State, Store} from '../state';
+import {TimespanPipe} from './timespanPipe';
 let com = require('serialport');
 
 @Component({
@@ -13,11 +13,11 @@ let com = require('serialport');
     label:after {content: ":"}
     .row {display: flex; align-items: center}
   `],
-  templateUrl: 'settings.html',
+  templateUrl: 'settings/settings.html',
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 
-export class Settings {
+export class SettingsComponent {
 
   private portPath: string;
   private baudRate: number;

@@ -2,7 +2,8 @@ import {Component, Input, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
 import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
-import {ProgrammableFile, FlashMagicState, ProgrammerState, setProgrammerState, Store, removeProgrammableFile} from './state';
+import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setProgrammerState, setProgrammableFileAddress, Store} from '../state';
+import {HexInputComponent} from './hexInputComponent';
 import * as fs from 'fs';
 
 @Component({
@@ -14,20 +15,21 @@ import * as fs from 'fs';
       align-items: center;
     }
   `],
-  templateUrl: 'programmable_file.html',
-  directives: [CORE_DIRECTIVES, PROGRESSBAR_DIRECTIVES]
+  templateUrl: 'uploader/programmableFile.html',
+  directives: [HexInputComponent, CORE_DIRECTIVES, PROGRESSBAR_DIRECTIVES]
 })
 
-export class BinaryFile implements ProgrammableFile {
+export class ProgrammableFileComponent implements ProgrammableFile {
 
   @Input() index: number;
   @Input() filePath: string;
   @Input() address: number;
 
-  private status: ProgrammerState = ProgrammerState.IDLE;
-  private uploadLength: number;
-  private uploadCount: number;
-  private blocked: boolean;
+  status = ProgrammerState.IDLE;
+  uploadLength: number;
+  uploadCount: number;
+  blocked = false;
+  invalidAddress = false;
 
   constructor(private ngZone: NgZone) {
     Store.subscribe(state => {
@@ -35,12 +37,19 @@ export class BinaryFile implements ProgrammableFile {
     });
   }
 
-  private setStatus(status: ProgrammerState): void {
+  addressChange(): void {
+    this.invalidAddress = isNaN(this.address);
+    if (!this.invalidAddress) {
+      Store.dispatch(setProgrammableFileAddress(this.index, this.address));
+    }
+  }
+
+  setStatus(status: ProgrammerState): void {
     Store.dispatch(setProgrammerState(status));
     this.status = status;
   }
 
-  private downloadFile(): void {
+  downloadFile(): void {
     let state = Store.getState().flashmagic;
     this.setStatus(ProgrammerState.OPENING);
     this.open(state)
@@ -64,7 +73,7 @@ export class BinaryFile implements ProgrammableFile {
       });
   }
 
-  private remove(): void {
+  remove(): void {
     Store.dispatch(removeProgrammableFile(this.index));
   }
 
