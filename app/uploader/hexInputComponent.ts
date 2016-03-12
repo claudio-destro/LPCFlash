@@ -22,7 +22,7 @@ export class HexInputComponent implements OnInit {
   private hexValue: string;
 
   ngOnInit() {
-    this.hexValue = (this.value || 0).toString(16);
+    this.hexValue = (this.value || 0).toString(16).toUpperCase();
   }
 
   hexValueChange() {
