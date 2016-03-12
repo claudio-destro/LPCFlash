@@ -10,14 +10,14 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <hexInput [(value)]="address" (valueChange)="addressChange()" [disabled]="frozen"></hexInput>
+      <hexInput [(value)]="address" (valueChange)="addressChange()" [disabled]="blocked"></hexInput>
     </div>
     <div class="col-sm-2">
       <div class="btn-group fit-width">
-        <button type="button" class="btn btn-success" (click)="downloadFile()" [disabled]="frozen || invalidAddress">
+        <button type="button" class="btn btn-success" (click)="downloadFile()" [disabled]="blocked || invalidAddress">
           <span class="glyphicon glyphicon-download-alt"></span>&nbsp;
         </button>
-        <button type="button" class="btn btn-danger" (click)="remove()" [disabled]="frozen || invalidAddress">
+        <button type="button" class="btn btn-danger" (click)="remove()" [disabled]="blocked">
           <span class="glyphicon glyphicon-remove"></span>&nbsp;
         </button>
       </div>
