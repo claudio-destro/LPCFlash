@@ -1,7 +1,7 @@
 <div class="row programmable-file">
 
   <div *ngIf="status <= 0 || status == 4" class="flashmagic-idle">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <div class="input-group">
         <div class="input-group-addon">
           <span class="glyphicon glyphicon-file"></span>&nbsp;
@@ -9,7 +9,7 @@
         <input [ngModel]="filePath" type="text" class="form-control file-path" readonly="readonly">
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-2">
       <hexInput [(value)]="address" (valueChange)="addressChange()" [disabled]="blocked"></hexInput>
     </div>
     <div class="col-sm-2">

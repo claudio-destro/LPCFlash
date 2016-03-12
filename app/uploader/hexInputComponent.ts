@@ -6,7 +6,7 @@ import {CORE_DIRECTIVES, NgModel} from 'angular2/common';
   template: `
     <div class="input-group" [class.has-error]="!isValid">
       <div class="input-group-addon">0x</div>
-      <input class="form-control" [(ngModel)]="hexValue" (ngModelChange)="hexValueChange()" [disabled]="disabled">
+      <input class="form-control" [(ngModel)]="hexValue" (ngModelChange)="hexValueChange()" [disabled]="disabled" style="font-family: monospace">
     </div>
   `,
   directives: [CORE_DIRECTIVES, NgModel]
