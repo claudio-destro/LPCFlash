@@ -1,0 +1,87 @@
+<form class="tab-content form-horizontal">
+  <fieldset class="form-group">
+    <label class="control-label col-sm-4" for="portPath">Serial port</label>
+    <div class="input-group col-sm-4">
+      <div class="btn-group" dropdown>
+        <button id="portPath" type="button" class="btn btn-success" dropdownToggle>
+          {{ portPath }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="portPath">
+          <li role="menuitem">
+            <a class="dropdown-item" *ngFor="#port of ports" (click)="portPathChange(port)">{{ port }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-4" for="baudRate">Baud rate</label>
+    <div class="input-group col-sm-4">
+      <div class="btn-group" dropdown>
+        <button id="baudRate" type="button" class="btn btn-success" dropdownToggle>
+          {{ baudRate }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="baudRate">
+          <li role="menuitem">
+            <a class="dropdown-item" *ngFor="#rate of baudRates" (click)="baudRateChange(rate)">{{ rate }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-4" for="cclk">Crystal clock frequency</label>
+    <div class="input-group col-sm-4">
+      <input [(ngModel)]="cclk" (ngModelChange)="crystalClockChange(cclk)" type="number" class="form-control" id="cclk">
+      <div class="input-group-addon">kHz</div>
+    </div>
+  </fieldset>
+  <hr>
+  <div class="row">
+    <div class="col-sm-8">
+      <fieldset class="form-group">
+        <label class="control-label col-sm-6" for="retryTimeout">Handshake retry timeout</label>
+        <div class="input-group col-sm-6">
+          <input [(ngModel)]="retryTimeout" (ngModelChange)="retryTimeoutChange(retryTimeout)" type="number" class="form-control" id="retryTimeout">
+          <div class="input-group-addon">ms</div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label class="control-label col-sm-6" for="retryCount">Handshake retry count</label>
+        <div class="input-group col-sm-6">
+          <input [(ngModel)]="retryCount" (ngModelChange)="retryCountChange(retryCount)" type="number" class="form-control" id="retryCount">
+        </div>
+      </fieldset>
+    </div>
+    <div class="col-sm-4">
+      <p>{{ retryTimeout * retryCount | timespan }}</p>
+    </div>
+  </div>
+  <hr>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-4" for="echo">Echo</label>
+    <div class="input-group col-sm-6">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="echo" disabled="disabled">
+          <span class="glyphicon" [class.glyphicon-ok]="echo" [class.glyphicon-remove]="!echo"></span>&nbsp;
+        </button>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="form-group">
+    <label class="control-label col-sm-4" for="verbose">Verbose</label>
+    <div class="input-group col-sm-6">
+      <div class="btn-group">
+        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="verbose" disabled="disabled">
+          <span class="glyphicon" [class.glyphicon-ok]="verbose" [class.glyphicon-remove]="!verbose"></span>&nbsp;
+        </button>
+      </div>
+    </div>
+  </fieldset>
+  <hr>
+  <div>
+    Due to a bug in the <code>node-serialport</code> library, any configuration change made <b>after the first upload</b> will not be used until next program restart.
+  </div>
+</form>
