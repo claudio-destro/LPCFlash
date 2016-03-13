@@ -1,6 +1,6 @@
 {
   "name": "lpcflashutility",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "NXP LPC Microprocessor Programmer GUI",
   "author": "Claudio Destro <claudio.destro@gmail.com>",
   "license": "LGPL-3.0",
