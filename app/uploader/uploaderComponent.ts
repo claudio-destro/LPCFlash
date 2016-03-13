@@ -28,6 +28,9 @@ import * as fs from 'fs';
       top: 40%;
       color: #5CB85C;
     }
+    .table>tbody>tr>td:nth-child(1) {
+      vertical-align: middle;
+    }
   `],
   templateUrl: 'uploader/uploader.html',
   directives: [ProgrammableFileComponent, CORE_DIRECTIVES, FileDropDirective]

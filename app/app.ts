@@ -18,8 +18,9 @@ import {SettingsComponent} from './settings';
 })
 
 @RouteConfig([
+  { path: '/', redirectTo: ['Settings'] },
   { path: '/upload', name: 'Uploader', component: UploaderComponent },
-  { path: '/settings', name: 'Settings', component: SettingsComponent }
+  { path: '/settings', name: 'Settings', component: SettingsComponent, useAsDefault: true }
 ])
 
 export class LpcFlashUtility {

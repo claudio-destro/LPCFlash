@@ -1,15 +1,20 @@
 <div class="container tab-content">
   <div class="row">
     <div fileDrop (fileOver)="fileOver($event)" class="dropzone dropzone-idle col-sm-12">
-      <table class="table" *ngIf="history.length">
-        <tbody>
-          <tr *ngFor="#file of history; #i = index">
-            <td>
-              <programmableFile [index]="i" [filePath]="file.filePath" [address]="file.address"></programmableFile>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div *ngIf="history.length">
+        <table class="table">
+          <tbody>
+            <tr *ngFor="#file of history; #i = index">
+              <td>
+                {{ i }}
+              </td>
+              <td>
+                <programmableFile [index]="i" [filePath]="file.filePath" [address]="file.address"></programmableFile>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <h3 *ngIf="history.length === 0"> Drop file(s) here </h3>
     </div>
   </div>

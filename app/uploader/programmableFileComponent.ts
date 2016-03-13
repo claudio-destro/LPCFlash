@@ -4,15 +4,19 @@ import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
 import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
 import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setProgrammerState, setProgrammableFileAddress, Store} from '../state';
 import {HexInputComponent} from './hexInputComponent';
+import {getIspProvider} from './ispProvider';
 import * as fs from 'fs';
 
 @Component({
   selector: 'programmableFile',
   styles: [`
-    .flashmagic-opening,
-    .flashmagic-synching {
-      display: flex;
+    .flashmagic-state-opening,
+    .flashmagic-state-synching {
       align-items: center;
+      display: flex;
+    }
+    .flashmagic-state>div[class^="col-"]{
+      padding-right: 0;
     }
   `],
   templateUrl: 'uploader/programmableFile.html',
@@ -52,7 +56,7 @@ export class ProgrammableFileComponent implements ProgrammableFile {
   downloadFile(): void {
     let state = Store.getState().flashmagic;
     this.setStatus(ProgrammerState.OPENING);
-    this.open(state)
+    getIspProvider().get(state)
       .then(isp => {
         this.setStatus(ProgrammerState.SYNCING);
         return this.handshake(isp);
@@ -61,11 +65,13 @@ export class ProgrammableFileComponent implements ProgrammableFile {
         this.setStatus(ProgrammerState.FLASHING);
         return this.programFile(isp);
       })
-      .then(() => {
+      .then(isp => {
         this.setStatus(ProgrammerState.CLOSING);
+        return getIspProvider().unget(isp);
       })
-      .then(() => {
+      .then(isp => {
         this.setStatus(ProgrammerState.IDLE);
+        return isp;
       })
       .catch(err => {
         this.setStatus(ProgrammerState.FAILED);
@@ -75,12 +81,6 @@ export class ProgrammableFileComponent implements ProgrammableFile {
 
   remove(): void {
     Store.dispatch(removeProgrammableFile(this.index));
-  }
-
-  private open(state: FlashMagicState): Promise<InSystemProgramming> {
-    let isp = new InSystemProgramming(state.portPath, state.baudRate, state.cclk);
-    isp.verbose = state.verbose;
-    return isp.open();
   }
 
   private handshake(isp: InSystemProgramming) {
@@ -94,7 +94,6 @@ export class ProgrammableFileComponent implements ProgrammableFile {
           .then(isp => isp.writeln('Synchronized'))
           .then(isp => isp.assert(/Synchronized/))
           .then(isp => isp.assertOK())
-          .then(isp => isp.reset())
           .then(isp => isp.sendLine(isp.cclk.toString(10)))
           .then(isp => isp.assertOK())
           .then(isp => isp.setEcho(cfg.echo))
@@ -106,6 +105,7 @@ export class ProgrammableFileComponent implements ProgrammableFile {
               if (count-- <= 0) {
                 return reject(error);
               }
+              console.error(error);
               setTimeout(synchronize); // loop until error or interrupt
             }
           });
