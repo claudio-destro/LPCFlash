@@ -1,12 +1,12 @@
 import {createStore, IReducer, IStore} from 'redux';
-import {State, ProgrammerState} from './state';
+import {LPCFlashState, ProgrammerState} from './LPCFlashState';
 
 const LOCALSTORAGE_KEY = 'lpcflash';
 const serialize = JSON.stringify;
 const deserialize = JSON.parse;
 
-export function createPersistentStore(reducer: IReducer<State>, initialState: State): IStore<State> {
-  let finalInitialState: State;
+export function createPersistentStore(reducer: IReducer<LPCFlashState>, initialState: LPCFlashState): IStore<LPCFlashState> {
+  let finalInitialState: LPCFlashState;
 
   try {
     let persistedState = deserialize(localStorage.getItem(LOCALSTORAGE_KEY));

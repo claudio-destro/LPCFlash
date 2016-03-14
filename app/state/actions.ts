@@ -1,4 +1,4 @@
-import {ProgrammableFile, ProgrammerState, HandshakeState} from './State';
+import {ProgrammableFile, ProgrammerState, HandshakeState} from './LPCFlashState';
 
 export const SET_PORT_PATH = 'SET_PORT_PATH';
 export const SET_BAUD_RATE = 'SET_BAUD_RATE';
