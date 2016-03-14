@@ -16,6 +16,7 @@ export function createPersistentStore(reducer: IReducer<LPCFlashState>, initialS
   }
 
   finalInitialState.programmer = ProgrammerState.IDLE;
+  finalInitialState.alreadyOpen = false;
 
   const store = createStore(reducer, finalInitialState);
 

@@ -30,4 +30,5 @@ export interface LPCFlashState {
   programmer: ProgrammerState;
   flashmagic: FlashMagicState;
   history: ProgrammableFile[];
+  alreadyOpen: boolean;
 }

@@ -14,6 +14,8 @@ class IspSingleton implements IspProvider {
 
   get(state: FlashMagicState): Promise<InSystemProgramming> {
     if (this.isp) {
+      this.isp.cclk = state.cclk;
+      this.isp.verbose = state.verbose;
       return Promise.resolve(this.isp.reset());
     }
     this.isp = new InSystemProgramming(state.portPath, state.baudRate, state.cclk);
