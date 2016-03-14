@@ -1,7 +1,7 @@
 import * as Actions from './actions';
-import {State} from './State';
+import {LPCFlashState} from './LPCFlashState';
 
-export function reducer(state: State, action: Actions.Action) {
+export function reducer(state: LPCFlashState, action: Actions.Action) {
   switch (action.type) {
     case Actions.SET_PORT_PATH:
       state.flashmagic.portPath = (<Actions.SetPortPathAction>action).path;

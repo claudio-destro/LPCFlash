@@ -6,6 +6,6 @@
   "license": "LGPL-3.0",
   "main": "main.js",
   "dependencies": {
-    "serialport": "^2.0.5"
+    "serialport": "^2.0.6"
   }
 }

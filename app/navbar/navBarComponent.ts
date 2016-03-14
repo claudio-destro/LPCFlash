@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {ProgrammerState, State, Store} from '../state';
+import {ProgrammerState, LPCFlashState, Store} from '../state';
 
 @Component({
   selector: 'navBar',

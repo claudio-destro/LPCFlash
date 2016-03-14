@@ -26,7 +26,7 @@ export interface ProgrammableFile {
   address: number;
 }
 
-export interface State {
+export interface LPCFlashState {
   programmer: ProgrammerState;
   flashmagic: FlashMagicState;
   history: ProgrammableFile[];

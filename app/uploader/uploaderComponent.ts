@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {FileDropDirective} from './fileDropDirective';
-import {ProgrammableFile, addProgrammableFile, Store, State} from '../state';
+import {ProgrammableFile, addProgrammableFile, Store, LPCFlashState} from '../state';
 import {ProgrammableFileComponent} from './programmableFileComponent';
 import * as fs from 'fs';
 
@@ -51,7 +51,7 @@ export class UploaderComponent {
     }
   }
 
-  private gatherHistory(state: State = Store.getState()): void {
+  private gatherHistory(state: LPCFlashState = Store.getState()): void {
     this.history = state.history;
   }
 }

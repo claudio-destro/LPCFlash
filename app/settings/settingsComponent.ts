@@ -2,7 +2,7 @@ import {NgFor} from 'angular2/common';
 import {Component, NgZone} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
-import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, FlashMagicState, State, Store} from '../state';
+import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, FlashMagicState, LPCFlashState, Store} from '../state';
 import {TimespanPipe} from './timespanPipe';
 let com = require('serialport');
 
@@ -61,7 +61,7 @@ export class SettingsComponent {
     Store.dispatch(setHandshake(this.retryTimeout, retryCount));
   }
 
-  private gatherState(state: State = Store.getState()): void {
+  private gatherState(state: LPCFlashState = Store.getState()): void {
     const fm = state.flashmagic;
     this.portPath = fm.portPath;
     this.baudRate = fm.baudRate;
