@@ -9,7 +9,7 @@ import {ProgrammerState, LPCFlashState, Store} from '../state';
     .disabled a {cursor: default}
     .disabled {pointer-events: none}
   `],
-  templateUrl: 'navbar/navBar.html',
+  templateUrl: 'app/navbar/navBar.html',
   directives: [ROUTER_DIRECTIVES]
 })
 

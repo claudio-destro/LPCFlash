@@ -28,7 +28,8 @@ function openProgrammer() {
   if (!mainWindow) {
     menuBar.items[1].submenu.items[0].enabled = false;
     mainWindow = new BrowserWindow({ width: 1024, height: 768 });
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+    // mainWindow.toggleDevTools();
     mainWindow.on('closed', function () {
       menuBar.items[1].submenu.items[0].enabled = true;
       mainWindow = null;

@@ -19,7 +19,7 @@ import * as fs from 'fs';
       padding-right: 0;
     }
   `],
-  templateUrl: 'uploader/programmableFile.html',
+  templateUrl: 'app/uploader/programmableFile.html',
   directives: [HexInputComponent, CORE_DIRECTIVES, PROGRESSBAR_DIRECTIVES]
 })
 

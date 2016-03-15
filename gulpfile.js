@@ -32,7 +32,8 @@ function copy(base, files, dest) {
 
 gulp.task('copy', function () {
   return merge2([
-    copy('app/', ['**/*.html', '**/*.js', '**/*.png'], 'build/')
+    copy('src/', ['**/*.html', '**/*.js', '**/*.png'], 'build/'),
+    copy('node_modules/bootstrap/dist/', ['css/bootstrap.min.css*', 'fonts/*'], 'build/styles')
   ]);
 });
 
@@ -49,6 +50,7 @@ gulp.task('clean', function () {
     '!build/node_modules/**/*',
     '!build/node_modules/',
     '!build/package.json',
+    'build/**/.DS_Store',
     'lpcflash.asar'
   ], {
       read: false

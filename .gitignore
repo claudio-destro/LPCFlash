@@ -1,6 +1,7 @@
 npm-debug.log*
 node_modules/
 .npm
+build/styles
 build/**/*.js*
 build/**/*.css*
 build/**/*.html

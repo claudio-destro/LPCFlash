@@ -5,6 +5,8 @@ var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
+var config = require('./app.config');
+
 module.exports = {
   devtool: 'source-map',
   debug: false,
@@ -21,12 +23,12 @@ module.exports = {
       'angular2/router',
       'zone.js',
     ],
-    'app': './app/bootstrap.ts'
+    'app': './src/bootstrap.ts'
   },
 
   output: {
-    path: path.resolve(__dirname, 'build/'),
-    publicPath: 'build/',
+    path: path.resolve(__dirname, 'build/app/'),
+    publicPath: 'build/app/',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
     chunkFilename: '[id].chunk.js'
@@ -41,7 +43,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts',
-        exclude: [/build/, /src/, /test/, /typings/, /node_modules(?!\/ng2-bootstrap)/]
+        exclude: [/build/, /test/, /typings/, /node_modules(?!\/ng2-bootstrap)/]
       },
     ]
   },
