@@ -5,8 +5,6 @@ var webpack = require('webpack');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
-var config = require('./app.config');
-
 module.exports = {
   devtool: 'source-map',
   debug: false,
