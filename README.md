@@ -2,11 +2,28 @@
 
 A GUI for programming flash based microcontrollers from [NXP](http://www.nxp.com/microcontrollers) using a serial protocol.
 
-It implements a function similar to [Flash Magic](http://www.flashmagictool.com) but using [Electron](http://electron.atom.io) and [FlashMagic.js](https://www.npmjs.com/package/flashmagic.js) instead.
+It implements a function similar to [Flash Magic](http://www.flashmagictool.com) but using [Electron](http://electron.atom.io) and [FlashMagic.js](https://github.com/claudio-destro/flashmagic.js) instead.
 
-## Usage
+## Build
 
-To Be Done.
+I usually have `./node_modules/.bin` in my `PATH` so I just have to execute the following commands to perform a clean build:
+
+```bash
+# cd build
+# npm install
+# cd ..
+# npm install
+# typings install
+# gulp publish
+```
+
+## Test
+
+Run the following command
+
+```bash
+# electron lpcflash.asar
+```
 
 ## Disclaimer
 
