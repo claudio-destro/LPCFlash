@@ -43,6 +43,10 @@ module.exports = {
         loader: 'ts',
         exclude: [/build/, /test/, /typings/, /node_modules(?!\/ng2-bootstrap)/]
       },
+      {
+        test: /\.html$/,
+        loader: 'raw'
+      },
     ]
   },
 

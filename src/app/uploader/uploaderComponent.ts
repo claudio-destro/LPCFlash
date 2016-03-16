@@ -32,7 +32,7 @@ import * as fs from 'fs';
       vertical-align: middle;
     }
   `],
-  templateUrl: 'app/uploader/uploader.html',
+  template: require('./uploader.html'),
   directives: [ProgrammableFileComponent, CORE_DIRECTIVES, FileDropDirective]
 })
 

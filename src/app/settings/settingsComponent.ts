@@ -13,7 +13,7 @@ let com = require('serialport');
     label:after {content: ":"}
     .row {display: flex; align-items: center}
   `],
-  templateUrl: 'app/settings/settings.html',
+  template: require('./settings.html'),
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 
