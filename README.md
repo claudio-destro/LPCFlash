@@ -16,10 +16,11 @@ I usually have `./node_modules/.bin` in my `PATH` so I just have to execute the 
 # typings install
 # gulp publish
 ```
+After the last command, the file `lpcflash.asar` should be present in the project's root directory.
 
 ## Test
 
-Run the following command
+Run with the following command
 
 ```bash
 # electron lpcflash.asar
