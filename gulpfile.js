@@ -38,7 +38,7 @@ gulp.task('copy', function () {
 });
 
 gulp.task('dist', ['build'], function (callback) {
-  asar.createPackage('build/', 'lpcflash.asar', function (err) {
+  asar.createPackage('build/', 'app.asar', function (err) {
     if (err) throw new gutil.PluginError('build', err);
     callback();
   });
@@ -51,7 +51,7 @@ gulp.task('clean', function () {
     '!build/node_modules/',
     '!build/package.json',
     'build/**/.DS_Store',
-    'lpcflash.asar'
+    'app.asar'
   ], {
       read: false
     }).pipe(rm());
