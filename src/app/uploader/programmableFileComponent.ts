@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
-import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
+import {InSystemProgramming, Programmer} from 'flashmagic.js';
 import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setAlreadyOpen, setProgrammerState, setProgrammableFileAddress, Store} from '../state';
 import {HexInputComponent} from './hexInputComponent';
 import {getIspProvider} from './ispProvider';

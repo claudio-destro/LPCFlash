@@ -1,4 +1,4 @@
-import {InSystemProgramming} from 'flashmagic.js/lib';
+import {InSystemProgramming} from 'flashmagic.js';
 import {FlashMagicState, Store} from '../state';
 
 export interface IspProvider {
