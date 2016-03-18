@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnDestroy} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {FileDropDirective} from './fileDropDirective';
 import {ProgrammableFile, addProgrammableFile, Store, LPCFlashState} from '../state';
@@ -32,17 +32,22 @@ import * as fs from 'fs';
       vertical-align: middle;
     }
   `],
-  templateUrl: 'uploader/uploader.html',
+  template: require('./uploader.html'),
   directives: [ProgrammableFileComponent, CORE_DIRECTIVES, FileDropDirective]
 })
 
-export class UploaderComponent {
+export class UploaderComponent implements OnDestroy {
 
   private history: ProgrammableFile[] = [];
+  private unsubscribe = () => { };
 
   constructor() {
-    Store.subscribe(state => this.gatherHistory(state));
+    this.unsubscribe = Store.subscribe(state => this.gatherHistory(state));
     this.gatherHistory();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe();
   }
 
   private fileOver(e: FileList) {

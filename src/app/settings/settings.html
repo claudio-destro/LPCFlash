@@ -3,7 +3,7 @@
     <label class="control-label col-sm-4" for="portPath">Serial port</label>
     <div class="input-group col-sm-4">
       <div class="btn-group" dropdown>
-        <button id="portPath" type="button" class="btn btn-success" dropdownToggle>
+        <button id="portPath" type="button" class="btn btn-success" dropdownToggle [disabled]="alreadyOpen">
           {{ portPath }}
           <span class="caret"></span>
         </button>
@@ -13,13 +13,14 @@
           </li>
         </ul>
       </div>
+      <span class="only-once">&nbsp; *</span>
     </div>
   </fieldset>
   <fieldset class="form-group">
     <label class="control-label col-sm-4" for="baudRate">Baud rate</label>
     <div class="input-group col-sm-4">
       <div class="btn-group" dropdown>
-        <button id="baudRate" type="button" class="btn btn-success" dropdownToggle>
+        <button id="baudRate" type="button" class="btn btn-success" dropdownToggle [disabled]="alreadyOpen">
           {{ baudRate }}
           <span class="caret"></span>
         </button>
@@ -29,6 +30,7 @@
           </li>
         </ul>
       </div>
+      <span class="only-once">&nbsp; *</span>
     </div>
   </fieldset>
   <fieldset class="form-group">
@@ -61,29 +63,31 @@
   </div>
   <hr>
   <fieldset class="form-group">
-    <label class="control-label col-sm-4" for="echo">Echo</label>
+    <label class="control-label col-sm-4" for="echo">Serial protocol echo</label>
     <div class="input-group col-sm-6">
       <div class="btn-group">
-        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="echo" disabled="disabled">
+        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="echo" (ngModelChange)="echoChange(echo)">
           <span class="glyphicon" [class.glyphicon-ok]="echo" [class.glyphicon-remove]="!echo"></span>&nbsp;
         </button>
       </div>
     </div>
   </fieldset>
   <fieldset class="form-group">
-    <label class="control-label col-sm-4" for="verbose">Verbose</label>
+    <label class="control-label col-sm-4" for="verbose">Verbose log</label>
     <div class="input-group col-sm-6">
       <div class="btn-group">
-        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="verbose" disabled="disabled">
+        <button type="button" class="btn btn-success" btnCheckbox [(ngModel)]="verbose" (ngModelChange)="verboseChange(verbose)">
           <span class="glyphicon" [class.glyphicon-ok]="verbose" [class.glyphicon-remove]="!verbose"></span>&nbsp;
         </button>
       </div>
     </div>
   </fieldset>
-  <hr>
-  <div>
-    <p class="small">Due to a bug in the <code>node-serialport</code> library, any configuration change made
-      <b>after the first upload</b> will be saved but <b>not</b> used until next program restart.
+  <div *ngIf="!alreadyOpen">
+    <p>&nbsp;
+      <br>&nbsp;
+    </p>
+    <p class="small">* Due to a bug in the <code>node-serialport</code> library, any configuration change made
+      <b>after the first upload</b> will be saved but <b>not used</b> until next program restart.
     </p>
   </div>
 </form>

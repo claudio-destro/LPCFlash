@@ -1,8 +1,8 @@
-import {Component, Input, NgZone} from 'angular2/core';
+import {Component, Input, OnDestroy, NgZone} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
-import {InSystemProgramming, Programmer} from 'flashmagic.js/lib';
-import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setProgrammerState, setProgrammableFileAddress, Store} from '../state';
+import {InSystemProgramming, Programmer} from 'flashmagic.js';
+import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setAlreadyOpen, setProgrammerState, setProgrammableFileAddress, Store} from '../state';
 import {HexInputComponent} from './hexInputComponent';
 import {getIspProvider} from './ispProvider';
 import * as fs from 'fs';
@@ -19,11 +19,11 @@ import * as fs from 'fs';
       padding-right: 0;
     }
   `],
-  templateUrl: 'uploader/programmableFile.html',
+  template: require('./programmableFile.html'),
   directives: [HexInputComponent, CORE_DIRECTIVES, PROGRESSBAR_DIRECTIVES]
 })
 
-export class ProgrammableFileComponent implements ProgrammableFile {
+export class ProgrammableFileComponent implements OnDestroy, ProgrammableFile {
 
   @Input() index: number;
   @Input() filePath: string;
@@ -35,10 +35,16 @@ export class ProgrammableFileComponent implements ProgrammableFile {
   blocked = false;
   invalidAddress = false;
 
+  private unsubscribe = () => { };
+
   constructor(private ngZone: NgZone) {
-    Store.subscribe(state => {
+    this.unsubscribe = Store.subscribe(state => {
       this.blocked = Store.getState().programmer > 0;
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe();
   }
 
   addressChange(): void {
@@ -59,6 +65,7 @@ export class ProgrammableFileComponent implements ProgrammableFile {
     getIspProvider().get(state)
       .then(isp => {
         this.setStatus(ProgrammerState.SYNCING);
+        Store.dispatch(setAlreadyOpen());
         return this.handshake(isp);
       })
       .then(isp => {
@@ -105,7 +112,6 @@ export class ProgrammableFileComponent implements ProgrammableFile {
               if (count-- <= 0) {
                 return reject(error);
               }
-              console.error(error);
               setTimeout(synchronize); // loop until error or interrupt
             }
           });

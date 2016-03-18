@@ -7,6 +7,7 @@ export const SET_ECHO = 'SET_ECHO';
 export const SET_VERBOSE = 'SET_VERBOSE';
 export const SET_HANDSHAKE = 'SET_HANDSHAKE';
 export const SET_PROGRAMMER_STATE = 'SET_PROGRAMMER_STATE';
+export const SET_ALREADY_OPEN = 'SET_ALREADY_OPEN';
 export const ADD_PROGRAMMABLE_FILE = 'ADD_PROGRAMMABLE_FILE';
 export const SET_PROGRAMMABLE_FILE_ADDRESS = 'SET_PROGRAMMABLE_FILE_ADDRESS';
 export const REMOVE_PROGRAMMABLE_FILE = 'REMOVE_PROGRAMMABLE_FILE';
@@ -19,6 +20,7 @@ export interface SetEchoAction extends Action { echo: boolean; }
 export interface SetVerboseAction extends Action { verbose: boolean; }
 export interface SetHandshakeAction extends Action, HandshakeState { }
 export interface SetProgrammerStateAction extends Action { state: ProgrammerState }
+export interface SetAlreadyOpenAction extends Action { }
 export interface AddProgrammableFileAction extends Action, ProgrammableFile { }
 export interface SetProgrammableFileAddressAction extends Action { index: number; address: number }
 export interface RemoveProgrammableFileAction extends Action { index: number; }
@@ -49,6 +51,10 @@ export function setHandshake(retryTimeout: number, retryCount: number): SetHands
 
 export function setProgrammerState(state: ProgrammerState): SetProgrammerStateAction {
   return { type: SET_PROGRAMMER_STATE, state };
+}
+
+export function setAlreadyOpen(): SetAlreadyOpenAction {
+  return { type: SET_ALREADY_OPEN };
 }
 
 export function addProgrammableFile(filePath: string, address: number = 0x2000): AddProgrammableFileAction {

@@ -13,7 +13,7 @@ import {SettingsComponent} from './settings';
     <main class="container">
       <router-outlet></router-outlet>
     </main>
-    `,
+  `,
   directives: [NavBarComponent, ROUTER_DIRECTIVES]
 })
 

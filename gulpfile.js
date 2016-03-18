@@ -4,12 +4,13 @@ var merge2 = require('merge2');
 var webpack = require('webpack');
 var rm = require('gulp-rm');
 var runSequence = require('run-sequence');
-var asar = require('asar');
+var packager = require('electron-packager');
+// var asar = require('asar');
 
 gulp.task('default', ['dist']);
 
 gulp.task('build', ['copy'], function (callback) {
-  webpack(require('./webpack.config.js'), function (err, stats) {
+  webpack(require('./webpack.config'), function (err, stats) {
     if (err) throw new gutil.PluginError('build', err);
     if (stats.hasErrors || stats.hasWarnings) {
       gutil.log('[webpack]', stats.toString({
@@ -32,15 +33,20 @@ function copy(base, files, dest) {
 
 gulp.task('copy', function () {
   return merge2([
-    copy('app/', ['**/*.html', '**/*.js', '**/*.png'], 'build/')
+    copy('src/', ['app/index.html', '**/*.js', '**/*.png'], 'build/'),
+    copy('node_modules/bootstrap/dist/', ['css/bootstrap.min.css*', 'fonts/*'], 'build/styles')
   ]);
 });
 
 gulp.task('dist', ['build'], function (callback) {
-  asar.createPackage('build/', 'lpcflash.asar', function (err) {
+  packager(require('./packager.config'), function done (err, appPath) {
     if (err) throw new gutil.PluginError('build', err);
     callback();
   });
+  // asar.createPackage('build/', 'app.asar', function (err) {
+  //   if (err) throw new gutil.PluginError('build', err);
+  //   callback();
+  // });
 });
 
 gulp.task('clean', function () {
@@ -49,7 +55,9 @@ gulp.task('clean', function () {
     '!build/node_modules/**/*',
     '!build/node_modules/',
     '!build/package.json',
-    'lpcflash.asar'
+    'build/**/.DS_Store',
+    'dist/**/*',
+    '*.asar'
   ], {
       read: false
     }).pipe(rm());

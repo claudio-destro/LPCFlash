@@ -15,7 +15,8 @@ export const Store = createPersistentStore(reducer, {
       retryCount: 1500
     }
   },
-  history: []
+  history: [],
+  alreadyOpen: false
 });
 
 export * from './actions';

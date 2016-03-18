@@ -1,8 +1,8 @@
 import {NgFor} from 'angular2/common';
-import {Component, NgZone} from 'angular2/core';
+import {Component, NgZone, OnDestroy} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
-import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, FlashMagicState, LPCFlashState, Store} from '../state';
+import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, setVerbose, FlashMagicState, LPCFlashState, ProgrammerState, Store} from '../state';
 import {TimespanPipe} from './timespanPipe';
 let com = require('serialport');
 
@@ -13,11 +13,11 @@ let com = require('serialport');
     label:after {content: ":"}
     .row {display: flex; align-items: center}
   `],
-  templateUrl: 'settings/settings.html',
+  template: require('./settings.html'),
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 
-export class SettingsComponent {
+export class SettingsComponent implements OnDestroy {
 
   private portPath: string;
   private baudRate: number;
@@ -26,12 +26,15 @@ export class SettingsComponent {
   private verbose: boolean;
   private retryTimeout: number;
   private retryCount: number;
+  private alreadyOpen: boolean;
 
   private baudRates: number[] = [9600, 14400, 19200, 28800, 38400, 56000, 57600, 115200];
   private ports: string[] = [];
 
+  private unsubscribe = () => { };
+
   constructor(private ngZone: NgZone) {
-    Store.subscribe(state => this.gatherState(state));
+    this.unsubscribe = Store.subscribe(state => this.gatherState(state));
     this.gatherState();
     this.refreshPorts(() => {
       if (!this.portPath && this.ports.length) {
@@ -39,6 +42,10 @@ export class SettingsComponent {
         Store.dispatch(setPortPath(this.portPath));
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe();
   }
 
   private portPathChange(port: string): void {
@@ -61,6 +68,14 @@ export class SettingsComponent {
     Store.dispatch(setHandshake(this.retryTimeout, retryCount));
   }
 
+  private echoChange(echo: boolean): void {
+    Store.dispatch(setEcho(echo));
+  }
+
+  private verboseChange(verbose: boolean): void {
+    Store.dispatch(setVerbose(verbose));
+  }
+
   private gatherState(state: LPCFlashState = Store.getState()): void {
     const fm = state.flashmagic;
     this.portPath = fm.portPath;
@@ -70,6 +85,7 @@ export class SettingsComponent {
     this.verbose = fm.verbose;
     this.retryTimeout = fm.handshake.retryTimeout;
     this.retryCount = fm.handshake.retryCount;
+    this.alreadyOpen = state.alreadyOpen;
   }
 
   private refreshPorts(done: () => void): void {

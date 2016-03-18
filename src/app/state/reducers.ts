@@ -27,6 +27,9 @@ export function reducer(state: LPCFlashState, action: Actions.Action) {
     case Actions.SET_PROGRAMMER_STATE:
       state.programmer = (<Actions.SetProgrammerStateAction>action).state;
       break;
+    case Actions.SET_ALREADY_OPEN:
+      state.alreadyOpen = true;
+      break;
     case Actions.ADD_PROGRAMMABLE_FILE:
       state.history.unshift({
         filePath: (<Actions.AddProgrammableFileAction>action).filePath,
