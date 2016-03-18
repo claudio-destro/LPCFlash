@@ -21,6 +21,7 @@
     "zone.js": "0.5.15"
   },
   "devDependencies": {
+    "electron-packager": "^5.2.1",
     "gulp": "^3.9.1",
     "gulp-rm": "^1.0.0",
     "gulp-typescript": "^2.12.1",

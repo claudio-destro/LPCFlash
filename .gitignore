@@ -8,6 +8,8 @@ build/**/*.html
 build/**/*.min*
 build/**/*.map*
 build/**/*.png
+dist/
 *.asar
 semantic/
 typings/
+.vscode

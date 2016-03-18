@@ -41,7 +41,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'ts',
-        exclude: [/build/, /test/, /typings/, /node_modules(?![/\\]ng2-bootstrap)/]
+        exclude: [/build/, /dist/, /test/, /typings/, /node_modules(?![/\\]ng2-bootstrap)/]
       },
       {
         test: /\.html$/,
