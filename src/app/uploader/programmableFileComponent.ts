@@ -95,7 +95,7 @@ export class ProgrammableFileComponent implements OnDestroy, ProgrammableFile {
     let count = cfg.handshake.retryCount;
     this.uploadCount = this.uploadLength = 1;
     return new Promise<InSystemProgramming>((resolve, reject) => {
-      var synchronize = () => {
+      let synchronize = () => {
         isp.write("?")
           .then(() => isp.assert(/^\?*Synchronized/, cfg.handshake.retryTimeout))
           .then(isp => isp.writeln("Synchronized"))
