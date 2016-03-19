@@ -1,13 +1,13 @@
-import { Directive, EventEmitter } from 'angular2/core';
+import { Directive, EventEmitter } from "angular2/core";
 
 @Directive({
-  selector: '[fileDrop]',
-  events: ['fileOver'],
+  selector: "[fileDrop]",
+  events: ["fileOver"],
   host: {
-    '(drop)': 'onDrop($event)',
-    '(dragover)': 'onDragOver($event)',
-    '(dragleave)': 'onDragLeave($event)',
-    '[class.dragover]': 'hover'
+    "(drop)": "onDrop($event)",
+    "(dragover)": "onDragOver($event)",
+    "(dragleave)": "onDragLeave($event)",
+    "[class.dragover]": "hover"
   }
 })
 
@@ -23,7 +23,7 @@ export class FileDropDirective {
   }
 
   onDragOver(event: DragEvent) {
-    event.dataTransfer.dropEffect = 'copy';
+    event.dataTransfer.dropEffect = "copy";
     this.preventAndStop(event);
     this.hover = true;
   }

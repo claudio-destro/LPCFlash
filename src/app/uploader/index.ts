@@ -1,1 +1,1 @@
-export {UploaderComponent} from './uploaderComponent';
+export {UploaderComponent} from "./uploaderComponent";

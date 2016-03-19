@@ -1,6 +1,6 @@
-import {createPersistentStore} from './persistentState';
-import {ProgrammerState} from './LPCFlashState';
-import {reducer} from './reducers';
+import {createPersistentStore} from "./persistentState";
+import {ProgrammerState} from "./LPCFlashState";
+import {reducer} from "./reducers";
 
 export const Store = createPersistentStore(reducer, {
   programmer: ProgrammerState.IDLE,
@@ -19,5 +19,5 @@ export const Store = createPersistentStore(reducer, {
   alreadyOpen: false
 });
 
-export * from './actions';
-export * from './LPCFlashState';
+export * from "./actions";
+export * from "./LPCFlashState";

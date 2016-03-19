@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from 'angular2/core';
-import {CORE_DIRECTIVES, NgModel} from 'angular2/common';
+import {Component, EventEmitter, Input, OnInit, Output} from "angular2/core";
+import {CORE_DIRECTIVES, NgModel} from "angular2/common";
 
 @Component({
-  selector: 'hexInput',
+  selector: "hexInput",
   template: `
     <div class="input-group" [class.has-error]="!isValid">
       <div class="input-group-addon">0x</div>

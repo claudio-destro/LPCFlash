@@ -1,11 +1,11 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {NavBarComponent} from './navbar';
-import {UploaderComponent} from './uploader';
-import {SettingsComponent} from './settings';
+import {Component} from "angular2/core";
+import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+import {NavBarComponent} from "./navbar";
+import {UploaderComponent} from "./uploader";
+import {SettingsComponent} from "./settings";
 
 @Component({
-  selector: 'lpcFlashUtility',
+  selector: "lpcFlashUtility",
   template: `
     <header class="container">
       <navBar></navBar>
@@ -18,9 +18,9 @@ import {SettingsComponent} from './settings';
 })
 
 @RouteConfig([
-  { path: '/', redirectTo: ['Settings'] },
-  { path: '/upload', name: 'Uploader', component: UploaderComponent },
-  { path: '/settings', name: 'Settings', component: SettingsComponent, useAsDefault: true }
+  { path: "/", redirectTo: ["Settings"] },
+  { path: "/upload", name: "Uploader", component: UploaderComponent },
+  { path: "/settings", name: "Settings", component: SettingsComponent, useAsDefault: true }
 ])
 
 export class LpcFlashUtility {

@@ -1,16 +1,16 @@
-import {ProgrammableFile, ProgrammerState, HandshakeState} from './LPCFlashState';
+import {ProgrammableFile, ProgrammerState, HandshakeState} from "./LPCFlashState";
 
-export const SET_PORT_PATH = 'SET_PORT_PATH';
-export const SET_BAUD_RATE = 'SET_BAUD_RATE';
-export const SET_CCLK = 'SET_CCLK';
-export const SET_ECHO = 'SET_ECHO';
-export const SET_VERBOSE = 'SET_VERBOSE';
-export const SET_HANDSHAKE = 'SET_HANDSHAKE';
-export const SET_PROGRAMMER_STATE = 'SET_PROGRAMMER_STATE';
-export const SET_ALREADY_OPEN = 'SET_ALREADY_OPEN';
-export const ADD_PROGRAMMABLE_FILE = 'ADD_PROGRAMMABLE_FILE';
-export const SET_PROGRAMMABLE_FILE_ADDRESS = 'SET_PROGRAMMABLE_FILE_ADDRESS';
-export const REMOVE_PROGRAMMABLE_FILE = 'REMOVE_PROGRAMMABLE_FILE';
+export const SET_PORT_PATH = "SET_PORT_PATH";
+export const SET_BAUD_RATE = "SET_BAUD_RATE";
+export const SET_CCLK = "SET_CCLK";
+export const SET_ECHO = "SET_ECHO";
+export const SET_VERBOSE = "SET_VERBOSE";
+export const SET_HANDSHAKE = "SET_HANDSHAKE";
+export const SET_PROGRAMMER_STATE = "SET_PROGRAMMER_STATE";
+export const SET_ALREADY_OPEN = "SET_ALREADY_OPEN";
+export const ADD_PROGRAMMABLE_FILE = "ADD_PROGRAMMABLE_FILE";
+export const SET_PROGRAMMABLE_FILE_ADDRESS = "SET_PROGRAMMABLE_FILE_ADDRESS";
+export const REMOVE_PROGRAMMABLE_FILE = "REMOVE_PROGRAMMABLE_FILE";
 
 export interface Action { type: string; }
 export interface SetPortPathAction extends Action { path: string; }
@@ -19,10 +19,10 @@ export interface SetCrystalClockAction extends Action { cclk: number; }
 export interface SetEchoAction extends Action { echo: boolean; }
 export interface SetVerboseAction extends Action { verbose: boolean; }
 export interface SetHandshakeAction extends Action, HandshakeState { }
-export interface SetProgrammerStateAction extends Action { state: ProgrammerState }
+export interface SetProgrammerStateAction extends Action { state: ProgrammerState; }
 export interface SetAlreadyOpenAction extends Action { }
 export interface AddProgrammableFileAction extends Action, ProgrammableFile { }
-export interface SetProgrammableFileAddressAction extends Action { index: number; address: number }
+export interface SetProgrammableFileAddressAction extends Action { index: number; address: number; }
 export interface RemoveProgrammableFileAction extends Action { index: number; }
 
 export function setPortPath(path: string): SetPortPathAction {

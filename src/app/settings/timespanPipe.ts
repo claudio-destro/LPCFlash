@@ -1,6 +1,6 @@
-import {Pipe, PipeTransform} from 'angular2/core';
+import {Pipe, PipeTransform} from "angular2/core";
 
-@Pipe({ name: 'timespan' })
+@Pipe({ name: "timespan" })
 
 export class TimespanPipe implements PipeTransform {
   transform(value: number, args: string[]): string {
@@ -11,9 +11,9 @@ export class TimespanPipe implements PipeTransform {
 }
 
 function toHHMMSS(value: number): string {
-  var hours = Math.floor(value / 3600);
-  var minutes = Math.floor((value - (hours * 3600)) / 60);
-  var seconds = value - (hours * 3600) - (minutes * 60);
+  let hours = Math.floor(value / 3600);
+  let minutes = Math.floor((value - (hours * 3600)) / 60);
+  let seconds = value - (hours * 3600) - (minutes * 60);
 
   if (hours > 0) {
     return `${hours}:${pad10(minutes)}:${pad10(seconds)}s`;

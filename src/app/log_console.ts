@@ -1,8 +1,8 @@
-import {AfterViewChecked, Component, ElementRef, Input, NgZone, OnChanges, SimpleChange} from 'angular2/core';
-import {NgFor} from 'angular2/common';
-import {Log} from './log';
+import {AfterViewChecked, Component, ElementRef, Input, NgZone, OnChanges, SimpleChange} from "angular2/core";
+import {NgFor} from "angular2/common";
+import {Log} from "./log";
 
-let com = require('serialport');
+let com = require("serialport");
 
 interface SerialPort {
   close(callback: () => void);
@@ -15,7 +15,7 @@ class NullSerialPort implements SerialPort {
 }
 
 @Component({
-  selector: 'log-console',
+  selector: "log-console",
   styles: [`
     ol {
       position: absolute;
@@ -50,10 +50,10 @@ export class LogConsole implements AfterViewChecked, OnChanges {
   }
 
   ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-    if (changes['comPort'] || changes['baudRate']) {
+    if (changes["comPort"] || changes["baudRate"]) {
       this.sp.close(() => {
         let sp = this.sp = this.makeSerialPort();
-        sp.on('data', (data) => {
+        sp.on("data", (data) => {
           this.ngZone.runOutsideAngular(() => {
             this.scrollToBottom = this.setScrollToBottom();
             this.addLog(data.toString());
@@ -81,7 +81,7 @@ export class LogConsole implements AfterViewChecked, OnChanges {
       return new com.SerialPort(
         this.comPort, {
           baudRate: this.baudRate,
-          parser: com.parsers.readline('\r\n')
+          parser: com.parsers.readline("\r\n")
         }, true, (error: any) => {
           if (error) {
             console.error(error);

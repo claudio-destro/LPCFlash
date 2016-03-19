@@ -1,6 +1,6 @@
-import {UrlResolver} from 'angular2/compiler';
+import {UrlResolver} from "angular2/compiler";
 
-const remote = require('electron').remote;
+const remote = require("electron").remote;
 
 export class FileUrlResolver extends UrlResolver {
   resolve(baseUrl: string, url: string): string {

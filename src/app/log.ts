@@ -1,3 +1,3 @@
 export interface Log {
-	message: String;
+  message: String;
 }

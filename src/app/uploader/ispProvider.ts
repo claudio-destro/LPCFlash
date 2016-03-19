@@ -1,5 +1,5 @@
-import {InSystemProgramming} from 'flashmagic.js';
-import {FlashMagicState, Store} from '../state';
+import {InSystemProgramming} from "flashmagic.js";
+import {FlashMagicState, Store} from "../state";
 
 export interface IspProvider {
   get(state: FlashMagicState): Promise<InSystemProgramming>;

@@ -1,5 +1,5 @@
-import * as Actions from './actions';
-import {LPCFlashState} from './LPCFlashState';
+import * as Actions from "./actions";
+import {LPCFlashState} from "./LPCFlashState";
 
 export function reducer(state: LPCFlashState, action: Actions.Action) {
   switch (action.type) {

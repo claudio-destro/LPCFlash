@@ -1,7 +1,7 @@
-import {createStore, IReducer, IStore} from 'redux';
-import {LPCFlashState, ProgrammerState} from './LPCFlashState';
+import {createStore, IReducer, IStore} from "redux";
+import {LPCFlashState, ProgrammerState} from "./LPCFlashState";
 
-const LOCALSTORAGE_KEY = 'lpcflash';
+const LOCALSTORAGE_KEY = "lpcflash";
 const serialize = JSON.stringify;
 const deserialize = JSON.parse;
 

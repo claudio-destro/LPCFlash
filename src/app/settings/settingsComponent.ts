@@ -1,19 +1,19 @@
-import {NgFor} from 'angular2/common';
-import {Component, NgZone, OnDestroy} from 'angular2/core';
-import {Router} from 'angular2/router';
-import {BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES} from 'ng2-bootstrap';
-import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, setVerbose, FlashMagicState, LPCFlashState, ProgrammerState, Store} from '../state';
-import {TimespanPipe} from './timespanPipe';
-let com = require('serialport');
+import {NgFor} from "angular2/common";
+import {Component, NgZone, OnDestroy} from "angular2/core";
+import {Router} from "angular2/router";
+import {BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES} from "ng2-bootstrap";
+import {setPortPath, setBaudRate, setCrystalClock, setEcho, setHandshake, setVerbose, FlashMagicState, LPCFlashState, ProgrammerState, Store} from "../state";
+import {TimespanPipe} from "./timespanPipe";
+let com = require("serialport");
 
 @Component({
-  selector: 'settings',
+  selector: "settings",
   pipes: [TimespanPipe],
   styles: [`
     label:after {content: ":"}
     .row {display: flex; align-items: center}
   `],
-  template: require('./settings.html'),
+  template: require("./settings.html"),
   directives: [NgFor, BUTTON_DIRECTIVES, DROPDOWN_DIRECTIVES]
 })
 

@@ -1,14 +1,14 @@
-import {Component, Input, OnDestroy, NgZone} from 'angular2/core';
-import {CORE_DIRECTIVES} from 'angular2/common';
-import {PROGRESSBAR_DIRECTIVES} from 'ng2-bootstrap';
-import {InSystemProgramming, Programmer} from 'flashmagic.js';
-import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setAlreadyOpen, setProgrammerState, setProgrammableFileAddress, Store} from '../state';
-import {HexInputComponent} from './hexInputComponent';
-import {getIspProvider} from './ispProvider';
-import * as fs from 'fs';
+import {Component, Input, OnDestroy, NgZone} from "angular2/core";
+import {CORE_DIRECTIVES} from "angular2/common";
+import {PROGRESSBAR_DIRECTIVES} from "ng2-bootstrap";
+import {InSystemProgramming, Programmer} from "flashmagic.js";
+import {ProgrammableFile, FlashMagicState, ProgrammerState, removeProgrammableFile, setAlreadyOpen, setProgrammerState, setProgrammableFileAddress, Store} from "../state";
+import {HexInputComponent} from "./hexInputComponent";
+import {getIspProvider} from "./ispProvider";
+import * as fs from "fs";
 
 @Component({
-  selector: 'programmableFile',
+  selector: "programmableFile",
   styles: [`
     .flashmagic-state-opening,
     .flashmagic-state-synching {
@@ -19,7 +19,7 @@ import * as fs from 'fs';
       padding-right: 0;
     }
   `],
-  template: require('./programmableFile.html'),
+  template: require("./programmableFile.html"),
   directives: [HexInputComponent, CORE_DIRECTIVES, PROGRESSBAR_DIRECTIVES]
 })
 
@@ -96,9 +96,9 @@ export class ProgrammableFileComponent implements OnDestroy, ProgrammableFile {
     this.uploadCount = this.uploadLength = 1;
     return new Promise<InSystemProgramming>((resolve, reject) => {
       var synchronize = () => {
-        isp.write('?')
+        isp.write("?")
           .then(() => isp.assert(/^\?*Synchronized/, cfg.handshake.retryTimeout))
-          .then(isp => isp.writeln('Synchronized'))
+          .then(isp => isp.writeln("Synchronized"))
           .then(isp => isp.assert(/Synchronized/))
           .then(isp => isp.assertOK())
           .then(isp => isp.sendLine(isp.cclk.toString(10)))
@@ -127,8 +127,8 @@ export class ProgrammableFileComponent implements OnDestroy, ProgrammableFile {
     return new Promise<InSystemProgramming>((resolve, reject) => {
       let stream = fs.createReadStream(this.filePath);
       programmer.program(stream)
-        .on('start', () => { })
-        .on('chunk', buffer => {
+        .on("start", () => { })
+        .on("chunk", buffer => {
           if (this.status === ProgrammerState.FLASHING) {
             this.ngZone.runOutsideAngular(() => {
               this.uploadCount += buffer.length;
@@ -136,11 +136,11 @@ export class ProgrammableFileComponent implements OnDestroy, ProgrammableFile {
             });
           }
         })
-        .on('error', error => {
+        .on("error", error => {
           stream.close();
           reject(error);
         })
-        .on('end', () => {
+        .on("end", () => {
           stream.close();
           resolve(isp);
         });
